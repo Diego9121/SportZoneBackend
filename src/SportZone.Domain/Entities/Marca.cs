@@ -7,5 +7,4 @@ public class Marca : BaseEntity
     public string? Logo { get; set; }
 
     public ICollection<Articulo> Articulos { get; set; } = new List<Articulo>();
-    public ICollection<ProveedorMarca> ProveedorMarcas { get; set; } = new List<ProveedorMarca>();
 }

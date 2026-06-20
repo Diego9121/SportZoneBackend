@@ -1,7 +1,7 @@
 namespace SportZone.Application.DTOs.Articulo;
 
 // DTO de salida: CategoriaNombre/MarcaNombre vienen aplanados desde sus relaciones.
-// StockTotal y TotalVariantes son calculados a partir de las variantes cargadas.
+// El precio ya no vive aquí: cada variante (talla/color) tiene su propio precio.
 public class ArticuloDto
 {
     public int Id { get; set; }
@@ -13,8 +13,6 @@ public class ArticuloDto
     public string Nombre { get; set; } = string.Empty;
     public string? Descripcion { get; set; }
     public string? Imagen { get; set; }
-    public decimal PrecioVenta { get; set; }
-    public decimal PrecioCosto { get; set; }
     public int TotalVariantes { get; set; }
     public int StockTotal { get; set; }
     public DateTime CreatedAt { get; set; }

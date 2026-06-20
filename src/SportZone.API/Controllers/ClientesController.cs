@@ -42,13 +42,6 @@ public class ClientesController : BaseController
         return RespuestaOk(actualizado, "Cliente actualizado");
     }
 
-    [HttpPut("{id:int}/ajustar-puntos")]
-    public async Task<IActionResult> AjustarPuntos(int id, AjustarPuntosDto dto)
-    {
-        var actualizado = await _servicio.AjustarPuntosAsync(id, dto);
-        return RespuestaOk(actualizado, "Puntos actualizados");
-    }
-
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {

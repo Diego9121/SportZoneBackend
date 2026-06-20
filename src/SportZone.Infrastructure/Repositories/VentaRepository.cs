@@ -11,9 +11,7 @@ public class VentaRepository : Repository<Venta>, IVentaRepository
     {
         return await _context.Ventas
             .Include(v => v.Cliente)
-            .Include(v => v.Usuario)
             .Include(v => v.VentaDetalles).ThenInclude(d => d.Variante).ThenInclude(va => va.Articulo)
-            .Include(v => v.VentaPagos)
             .FirstOrDefaultAsync(v => v.Id == id);
     }
 
@@ -22,9 +20,7 @@ public class VentaRepository : Repository<Venta>, IVentaRepository
         var query = AplicarFiltroYOrden(
             _context.Ventas
                 .Include(v => v.Cliente)
-                .Include(v => v.Usuario)
                 .Include(v => v.VentaDetalles).ThenInclude(d => d.Variante).ThenInclude(va => va.Articulo)
-                .Include(v => v.VentaPagos)
                 .OrderByDescending(v => v.Id), // por defecto: la venta más reciente primero
             pquery);
 
@@ -33,7 +29,7 @@ public class VentaRepository : Repository<Venta>, IVentaRepository
         return (items, totalCount);
     }
 
-    public async Task<Venta> CrearConDetalleAsync(Venta venta, List<VentaDetalle> detalles, List<VentaPago> pagos)
+    public async Task<Venta> CrearConDetalleAsync(Venta venta, List<VentaDetalle> detalles)
     {
         var usuarioId = _currentUser.GetUsuarioId();
         venta.CreateById = usuarioId;
@@ -49,12 +45,16 @@ public class VentaRepository : Repository<Venta>, IVentaRepository
                 variante.Stock -= detalle.Cantidad;
                 variante.UpdateById = usuarioId;
             }
-        }
 
-        foreach (var pago in pagos)
-        {
-            pago.CreateById = usuarioId;
-            venta.VentaPagos.Add(pago);
+            // Misma idea que en Ingreso: al venir de la colección de navegación, EF Core asigna el VentaId solo
+            venta.MovimientosStock.Add(new MovimientoStock
+            {
+                ArticuloVarianteId = detalle.VarianteId,
+                TipoMovimiento = "SALIDA",
+                Cantidad = detalle.Cantidad,
+                NumeroDoc = venta.NumeroDoc,
+                CreateById = usuarioId
+            });
         }
 
         await _context.Ventas.AddAsync(venta);
@@ -76,6 +76,18 @@ public class VentaRepository : Repository<Venta>, IVentaRepository
                 variante.Stock += detalle.Cantidad;
                 variante.UpdateById = usuarioId;
             }
+
+            // La venta ya existe (tiene Id real), así que aquí sí se asigna VentaId explícitamente.
+            // Es un "ENTRADA" porque el stock vuelve a la bodega al anular la venta.
+            await _context.MovimientosStock.AddAsync(new MovimientoStock
+            {
+                ArticuloVarianteId = detalle.VarianteId,
+                VentaId = venta.Id,
+                TipoMovimiento = "ENTRADA",
+                Cantidad = detalle.Cantidad,
+                NumeroDoc = venta.NumeroDoc,
+                CreateById = usuarioId
+            });
         }
 
         _context.Ventas.Update(venta);

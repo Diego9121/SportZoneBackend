@@ -13,6 +13,5 @@ public class ClienteConfiguration : BaseEntityConfiguration<Cliente>
         builder.Property(e => e.Telefono).HasMaxLength(20);
         builder.Property(e => e.Email).HasMaxLength(100);
         builder.Property(e => e.Direccion).HasMaxLength(255);
-        builder.Property(e => e.DescuentoFidelizacion).HasPrecision(5, 2);
     }
 }

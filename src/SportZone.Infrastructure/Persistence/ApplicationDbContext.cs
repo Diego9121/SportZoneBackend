@@ -12,15 +12,11 @@ public class ApplicationDbContext : DbContext
     public DbSet<ArticuloVariante> ArticuloVariantes => Set<ArticuloVariante>();
     public DbSet<Cliente> Clientes => Set<Cliente>();
     public DbSet<Proveedor> Proveedores => Set<Proveedor>();
-    public DbSet<ProveedorMarca> ProveedorMarcas => Set<ProveedorMarca>();
     public DbSet<Ingreso> Ingresos => Set<Ingreso>();
     public DbSet<IngresoDetalle> IngresoDetalles => Set<IngresoDetalle>();
     public DbSet<Venta> Ventas => Set<Venta>();
-    public DbSet<VentaPago> VentaPagos => Set<VentaPago>();
     public DbSet<VentaDetalle> VentaDetalles => Set<VentaDetalle>();
-    public DbSet<Devolucion> Devoluciones => Set<Devolucion>();
-    public DbSet<DevolucionDetalle> DevolucionDetalles => Set<DevolucionDetalle>();
-    public DbSet<Bitacora> Bitacoras => Set<Bitacora>();
+    public DbSet<MovimientoStock> MovimientosStock => Set<MovimientoStock>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

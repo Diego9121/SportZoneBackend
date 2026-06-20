@@ -66,7 +66,8 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
             CodigoBarras = dto.CodigoBarras,
             Stock = dto.Stock,
             StockMinimo = dto.StockMinimo,
-            PrecioVentaOverride = dto.PrecioVentaOverride
+            PrecioVenta = dto.PrecioVenta,
+            PrecioCosto = dto.PrecioCosto
         };
 
         var creada = await _repository.CreateAsync(variante);
@@ -96,7 +97,8 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
         variante.Color = dto.Color;
         variante.CodigoBarras = dto.CodigoBarras;
         variante.StockMinimo = dto.StockMinimo;
-        variante.PrecioVentaOverride = dto.PrecioVentaOverride;
+        variante.PrecioVenta = dto.PrecioVenta;
+        variante.PrecioCosto = dto.PrecioCosto;
 
         await _repository.UpdateAsync(variante);
 
@@ -104,7 +106,7 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
         return MapToDto(actualizadaConArticulo!);
     }
 
-    // Único lugar fuera de Ingreso/Venta/Devolucion donde se permite tocar Stock directamente: corrección manual
+    // Único lugar fuera de Ingreso/Venta donde se permite tocar Stock directamente: corrección manual
     public async Task<ArticuloVarianteDto> AjustarStockAsync(int id, AjustarStockDto dto)
     {
         var variante = await _repository.GetByIdAsync(id);
@@ -129,7 +131,6 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
 
     private static ArticuloVarianteDto MapToDto(ArticuloVariante variante)
     {
-        var precioBase = variante.Articulo?.PrecioVenta ?? 0;
         return new ArticuloVarianteDto
         {
             Id = variante.Id,
@@ -145,8 +146,8 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
             Stock = variante.Stock,
             StockMinimo = variante.StockMinimo,
             StockBajo = variante.Stock <= variante.StockMinimo,
-            PrecioVentaOverride = variante.PrecioVentaOverride,
-            PrecioVentaEfectivo = variante.PrecioVentaOverride ?? precioBase,
+            PrecioVenta = variante.PrecioVenta,
+            PrecioCosto = variante.PrecioCosto,
             CreatedAt = variante.CreatedAt
         };
     }

@@ -2,6 +2,8 @@ namespace SportZone.Domain.Entities;
 
 // Implementa IActivable: demuestra polimorfismo - cualquier servicio que reciba IActivable
 // puede leer/cambiar Activo sin saber que es específicamente un Usuario.
+// Ya no tiene colecciones de Venta/Ingreso/Devolucion/Bitacora: esas tablas dejaron de
+// referenciar Usuario directamente (queda cubierto por CreateById de BaseEntity).
 public class Usuario : BaseEntity, IActivable
 {
     public int RolId { get; set; }
@@ -13,9 +15,4 @@ public class Usuario : BaseEntity, IActivable
     public DateTime? UltimoAcceso { get; set; }
 
     public Rol Rol { get; set; } = null!;
-
-    public ICollection<Venta> Ventas { get; set; } = new List<Venta>();
-    public ICollection<Ingreso> Ingresos { get; set; } = new List<Ingreso>();
-    public ICollection<Devolucion> Devoluciones { get; set; } = new List<Devolucion>();
-    public ICollection<Bitacora> Bitacoras { get; set; } = new List<Bitacora>();
 }

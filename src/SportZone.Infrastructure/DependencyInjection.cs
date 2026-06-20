@@ -1,3 +1,5 @@
+using SportZone.Application.Interfaces.Servicios;
+using SportZone.Infrastructure.Persistence.Seed;
 using SportZone.Infrastructure.Services;
 
 namespace SportZone.Infrastructure;
@@ -20,9 +22,10 @@ public static class DependencyInjection
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         services.AddScoped<IArticuloRepository, ArticuloRepository>();
         services.AddScoped<IArticuloVarianteRepository, ArticuloVarianteRepository>();
-        services.AddScoped<IProveedorRepository, ProveedorRepository>();
         services.AddScoped<IIngresoRepository, IngresoRepository>();
         services.AddScoped<IVentaRepository, VentaRepository>();
+        services.AddScoped<IMovimientoStockRepository, MovimientoStockRepository>();
+        services.AddScoped<IDataSeederServicio, DataSeederServicio>();
 
         return services;
     }

@@ -4,8 +4,9 @@ namespace SportZone.Infrastructure.Repositories;
 
 public class Repository<T> : IRepository<T> where T : BaseEntity
 {
-    // Propiedades de texto que NUNCA deben entrar en el filtro genérico (ej. password hasheado)
-    private static readonly string[] CamposExcluidosDelFiltro = { "PasswordHash", "TokenRefresh" };
+    // Propiedades de texto que NUNCA deben entrar en el filtro genérico:
+    // PasswordHash/TokenRefresh por seguridad, Logo porque es una ruta/URL, no un dato buscable por el usuario
+    private static readonly string[] CamposExcluidosDelFiltro = { "PasswordHash", "TokenRefresh", "Logo" };
 
     // protected: las clases específicas (ej. UsuarioRepository) heredan y reutilizan este campo
     protected readonly ApplicationDbContext _context;

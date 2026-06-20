@@ -8,5 +8,4 @@ public class CreateVentaDto
     public string TipoComprobante { get; set; } = "RECIBO"; // RECIBO | FACTURA
     public string? Observacion { get; set; }
     public List<CreateVentaDetalleDto> Detalles { get; set; } = new();
-    public List<CreateVentaPagoDto> Pagos { get; set; } = new();
 }

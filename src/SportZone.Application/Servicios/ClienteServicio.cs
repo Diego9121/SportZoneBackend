@@ -75,22 +75,6 @@ public class ClienteServicio : IClienteServicio
         return MapToDto(actualizado);
     }
 
-    // La usará también el módulo de Ventas al confirmar una compra (acumula puntos automáticamente)
-    public async Task<ClienteDto> AjustarPuntosAsync(int id, AjustarPuntosDto dto)
-    {
-        var cliente = await _repository.GetByIdAsync(id);
-        if (cliente == null)
-            throw new NotFoundException($"Cliente con Id {id} no encontrado");
-
-        var nuevoTotal = cliente.PuntosFidelizacion + dto.Puntos;
-        if (nuevoTotal < 0)
-            throw new ValidationException($"El ajuste dejaria los puntos en {nuevoTotal}, no puede ser negativo");
-
-        cliente.PuntosFidelizacion = nuevoTotal;
-        var actualizado = await _repository.UpdateAsync(cliente);
-        return MapToDto(actualizado);
-    }
-
     public async Task DeleteAsync(int id)
     {
         await _repository.DeleteAsync(id);
@@ -107,8 +91,6 @@ public class ClienteServicio : IClienteServicio
             Telefono = cliente.Telefono,
             Email = cliente.Email,
             Direccion = cliente.Direccion,
-            PuntosFidelizacion = cliente.PuntosFidelizacion,
-            DescuentoFidelizacion = cliente.DescuentoFidelizacion,
             CreatedAt = cliente.CreatedAt
         };
     }

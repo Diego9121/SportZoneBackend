@@ -11,5 +11,6 @@ public class CreateArticuloVarianteDto
     public string? CodigoBarras { get; set; }
     public int Stock { get; set; }
     public int StockMinimo { get; set; } = 5;
-    public decimal? PrecioVentaOverride { get; set; }
+    public decimal PrecioVenta { get; set; }
+    public decimal PrecioCosto { get; set; }
 }

@@ -13,10 +13,5 @@ public class IngresoConfiguration : BaseEntityConfiguration<Ingreso>
                .WithMany(p => p.Ingresos)
                .HasForeignKey(e => e.ProveedorId)
                .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(e => e.Usuario)
-               .WithMany(u => u.Ingresos)
-               .HasForeignKey(e => e.UsuarioId)
-               .OnDelete(DeleteBehavior.Restrict);
     }
 }

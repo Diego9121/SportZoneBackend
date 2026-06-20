@@ -13,7 +13,8 @@ public class ArticuloVarianteConfiguration : BaseEntityConfiguration<ArticuloVar
         builder.Property(e => e.Color).HasMaxLength(50);
         builder.Property(e => e.CodigoBarras).HasMaxLength(100);
         builder.HasIndex(e => e.CodigoBarras).IsUnique();
-        builder.Property(e => e.PrecioVentaOverride).HasPrecision(10, 2);
+        builder.Property(e => e.PrecioVenta).HasPrecision(10, 2).IsRequired();
+        builder.Property(e => e.PrecioCosto).HasPrecision(10, 2).IsRequired();
 
         builder.HasIndex(e => new { e.ArticuloId, e.TallaUs, e.Color }).IsUnique();
 

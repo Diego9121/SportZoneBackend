@@ -59,9 +59,7 @@ public class ArticuloServicio : IArticuloServicio
             Codigo = dto.Codigo,
             Nombre = dto.Nombre,
             Descripcion = dto.Descripcion,
-            Imagen = dto.Imagen,
-            PrecioVenta = dto.PrecioVenta,
-            PrecioCosto = dto.PrecioCosto
+            Imagen = dto.Imagen
         };
 
         var creado = await _repository.CreateAsync(articulo);
@@ -91,8 +89,6 @@ public class ArticuloServicio : IArticuloServicio
         articulo.Nombre = dto.Nombre;
         articulo.Descripcion = dto.Descripcion;
         articulo.Imagen = dto.Imagen;
-        articulo.PrecioVenta = dto.PrecioVenta;
-        articulo.PrecioCosto = dto.PrecioCosto;
 
         await _repository.UpdateAsync(articulo);
 
@@ -118,8 +114,6 @@ public class ArticuloServicio : IArticuloServicio
             Nombre = articulo.Nombre,
             Descripcion = articulo.Descripcion,
             Imagen = articulo.Imagen,
-            PrecioVenta = articulo.PrecioVenta,
-            PrecioCosto = articulo.PrecioCosto,
             TotalVariantes = articulo.Variantes?.Count ?? 0,
             StockTotal = articulo.Variantes?.Sum(v => v.Stock) ?? 0,
             CreatedAt = articulo.CreatedAt

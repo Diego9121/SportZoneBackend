@@ -19,6 +19,7 @@ public static class DependencyInjection
         services.AddScoped<IIngresoServicio, IngresoServicio>();
         services.AddScoped<IVentaServicio, VentaServicio>();
         services.AddScoped<IAuthServicio, AuthServicio>();
+        services.AddScoped<IMovimientoStockServicio, MovimientoStockServicio>();
 
         return services;
     }

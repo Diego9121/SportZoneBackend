@@ -10,8 +10,6 @@ public class ArticuloConfiguration : BaseEntityConfiguration<Articulo>
         builder.HasIndex(e => e.Codigo).IsUnique();
         builder.Property(e => e.Nombre).HasMaxLength(150).IsRequired();
         builder.Property(e => e.Imagen).HasMaxLength(500);
-        builder.Property(e => e.PrecioVenta).HasPrecision(10, 2).IsRequired();
-        builder.Property(e => e.PrecioCosto).HasPrecision(10, 2).IsRequired();
 
         builder.HasOne(e => e.Categoria)
                .WithMany(c => c.Articulos)

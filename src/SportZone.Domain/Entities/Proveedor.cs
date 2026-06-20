@@ -7,8 +7,6 @@ public class Proveedor : BaseEntity
     public string? Telefono { get; set; }
     public string? Email { get; set; }
     public string? Direccion { get; set; }
-    public string? CondicionesComerciales { get; set; }
 
-    public ICollection<ProveedorMarca> ProveedorMarcas { get; set; } = new List<ProveedorMarca>();
     public ICollection<Ingreso> Ingresos { get; set; } = new List<Ingreso>();
 }

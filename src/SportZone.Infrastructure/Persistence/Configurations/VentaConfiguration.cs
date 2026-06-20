@@ -19,10 +19,5 @@ public class VentaConfiguration : BaseEntityConfiguration<Venta>
                .HasForeignKey(e => e.ClienteId)
                .IsRequired(false)
                .OnDelete(DeleteBehavior.SetNull);
-
-        builder.HasOne(e => e.Usuario)
-               .WithMany(u => u.Ventas)
-               .HasForeignKey(e => e.UsuarioId)
-               .OnDelete(DeleteBehavior.Restrict);
     }
 }

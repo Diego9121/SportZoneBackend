@@ -12,7 +12,7 @@ using SportZone.Infrastructure.Persistence;
 namespace SportZone.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260617065606_InitialCreate")]
+    [Migration("20260620023520_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -68,14 +68,6 @@ namespace SportZone.Infrastructure.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<decimal>("PrecioCosto")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<decimal>("PrecioVenta")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
                     b.Property<int?>("UpdateById")
                         .HasColumnType("int");
 
@@ -125,7 +117,11 @@ namespace SportZone.Infrastructure.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal?>("PrecioVentaOverride")
+                    b.Property<decimal>("PrecioCosto")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("PrecioVenta")
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
 
@@ -168,61 +164,6 @@ namespace SportZone.Infrastructure.Migrations
                         .HasFilter("[TallaUs] IS NOT NULL AND [Color] IS NOT NULL");
 
                     b.ToTable("ArticuloVariantes", (string)null);
-                });
-
-            modelBuilder.Entity("SportZone.Domain.Entities.Bitacora", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Accion")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("CreateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeleteById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IpAddress")
-                        .HasMaxLength(45)
-                        .HasColumnType("nvarchar(45)");
-
-                    b.Property<int?>("RegistroId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TablaAfectada")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("UpdateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Bitacoras", (string)null);
                 });
 
             modelBuilder.Entity("SportZone.Domain.Entities.Categoria", b =>
@@ -285,10 +226,6 @@ namespace SportZone.Infrastructure.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("DescuentoFidelizacion")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("decimal(5,2)");
-
                     b.Property<string>("Direccion")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -305,9 +242,6 @@ namespace SportZone.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
-
-                    b.Property<int>("PuntosFidelizacion")
-                        .HasColumnType("int");
 
                     b.Property<string>("Telefono")
                         .HasMaxLength(20)
@@ -332,116 +266,6 @@ namespace SportZone.Infrastructure.Migrations
                     b.ToTable("Clientes", (string)null);
                 });
 
-            modelBuilder.Entity("SportZone.Domain.Entities.Devolucion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeleteById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Motivo")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Observacion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Total")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<int?>("UpdateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VentaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.HasIndex("VentaId");
-
-                    b.ToTable("Devoluciones", (string)null);
-                });
-
-            modelBuilder.Entity("SportZone.Domain.Entities.DevolucionDetalle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Cantidad")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeleteById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DevolucionId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("PrecioUnitario")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<decimal>("Subtotal")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<int?>("UpdateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("VarianteId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DevolucionId");
-
-                    b.HasIndex("VarianteId");
-
-                    b.ToTable("DevolucionDetalles", (string)null);
-                });
-
             modelBuilder.Entity("SportZone.Domain.Entities.Ingreso", b =>
                 {
                     b.Property<int>("Id")
@@ -460,9 +284,6 @@ namespace SportZone.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("FechaDoc")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NumeroDoc")
@@ -485,14 +306,9 @@ namespace SportZone.Infrastructure.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProveedorId");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Ingresos", (string)null);
                 });
@@ -593,7 +409,7 @@ namespace SportZone.Infrastructure.Migrations
                     b.ToTable("Marcas", (string)null);
                 });
 
-            modelBuilder.Entity("SportZone.Domain.Entities.Proveedor", b =>
+            modelBuilder.Entity("SportZone.Domain.Entities.MovimientoStock", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -601,8 +417,63 @@ namespace SportZone.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CondicionesComerciales")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ArticuloVarianteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreateById")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeleteById")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("IngresoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NumeroDoc")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TipoMovimiento")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("UpdateById")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("VentaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticuloVarianteId");
+
+                    b.HasIndex("IngresoId");
+
+                    b.HasIndex("VentaId");
+
+                    b.ToTable("MovimientosStock", (string)null);
+                });
+
+            modelBuilder.Entity("SportZone.Domain.Entities.Proveedor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Contacto")
                         .HasMaxLength(100)
@@ -646,48 +517,6 @@ namespace SportZone.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Proveedores", (string)null);
-                });
-
-            modelBuilder.Entity("SportZone.Domain.Entities.ProveedorMarca", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeleteById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MarcaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProveedorId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UpdateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MarcaId");
-
-                    b.HasIndex("ProveedorId", "MarcaId")
-                        .IsUnique();
-
-                    b.ToTable("ProveedorMarcas", (string)null);
                 });
 
             modelBuilder.Entity("SportZone.Domain.Entities.Rol", b =>
@@ -853,17 +682,12 @@ namespace SportZone.Infrastructure.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
                     b.HasIndex("NumeroDoc")
                         .IsUnique();
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Ventas", (string)null);
                 });
@@ -924,55 +748,6 @@ namespace SportZone.Infrastructure.Migrations
                     b.ToTable("VentaDetalles", (string)null);
                 });
 
-            modelBuilder.Entity("SportZone.Domain.Entities.VentaPago", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("DeleteById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MetodoPago")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<decimal>("Monto")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("Referencia")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("UpdateById")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("VentaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VentaId");
-
-                    b.ToTable("VentaPagos", (string)null);
-                });
-
             modelBuilder.Entity("SportZone.Domain.Entities.Articulo", b =>
                 {
                     b.HasOne("SportZone.Domain.Entities.Categoria", "Categoria")
@@ -1003,55 +778,6 @@ namespace SportZone.Infrastructure.Migrations
                     b.Navigation("Articulo");
                 });
 
-            modelBuilder.Entity("SportZone.Domain.Entities.Bitacora", b =>
-                {
-                    b.HasOne("SportZone.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Bitacoras")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("SportZone.Domain.Entities.Devolucion", b =>
-                {
-                    b.HasOne("SportZone.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Devoluciones")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SportZone.Domain.Entities.Venta", "Venta")
-                        .WithMany("Devoluciones")
-                        .HasForeignKey("VentaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
-
-                    b.Navigation("Venta");
-                });
-
-            modelBuilder.Entity("SportZone.Domain.Entities.DevolucionDetalle", b =>
-                {
-                    b.HasOne("SportZone.Domain.Entities.Devolucion", "Devolucion")
-                        .WithMany("DevolucionDetalles")
-                        .HasForeignKey("DevolucionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SportZone.Domain.Entities.ArticuloVariante", "Variante")
-                        .WithMany("DevolucionDetalles")
-                        .HasForeignKey("VarianteId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Devolucion");
-
-                    b.Navigation("Variante");
-                });
-
             modelBuilder.Entity("SportZone.Domain.Entities.Ingreso", b =>
                 {
                     b.HasOne("SportZone.Domain.Entities.Proveedor", "Proveedor")
@@ -1060,15 +786,7 @@ namespace SportZone.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SportZone.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Ingresos")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Proveedor");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("SportZone.Domain.Entities.IngresoDetalle", b =>
@@ -1090,23 +808,29 @@ namespace SportZone.Infrastructure.Migrations
                     b.Navigation("Variante");
                 });
 
-            modelBuilder.Entity("SportZone.Domain.Entities.ProveedorMarca", b =>
+            modelBuilder.Entity("SportZone.Domain.Entities.MovimientoStock", b =>
                 {
-                    b.HasOne("SportZone.Domain.Entities.Marca", "Marca")
-                        .WithMany("ProveedorMarcas")
-                        .HasForeignKey("MarcaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("SportZone.Domain.Entities.ArticuloVariante", "ArticuloVariante")
+                        .WithMany("MovimientosStock")
+                        .HasForeignKey("ArticuloVarianteId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("SportZone.Domain.Entities.Proveedor", "Proveedor")
-                        .WithMany("ProveedorMarcas")
-                        .HasForeignKey("ProveedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("SportZone.Domain.Entities.Ingreso", "Ingreso")
+                        .WithMany("MovimientosStock")
+                        .HasForeignKey("IngresoId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("Marca");
+                    b.HasOne("SportZone.Domain.Entities.Venta", "Venta")
+                        .WithMany("MovimientosStock")
+                        .HasForeignKey("VentaId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Navigation("Proveedor");
+                    b.Navigation("ArticuloVariante");
+
+                    b.Navigation("Ingreso");
+
+                    b.Navigation("Venta");
                 });
 
             modelBuilder.Entity("SportZone.Domain.Entities.Usuario", b =>
@@ -1127,15 +851,7 @@ namespace SportZone.Infrastructure.Migrations
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("SportZone.Domain.Entities.Usuario", "Usuario")
-                        .WithMany("Ventas")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Cliente");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("SportZone.Domain.Entities.VentaDetalle", b =>
@@ -1157,17 +873,6 @@ namespace SportZone.Infrastructure.Migrations
                     b.Navigation("Venta");
                 });
 
-            modelBuilder.Entity("SportZone.Domain.Entities.VentaPago", b =>
-                {
-                    b.HasOne("SportZone.Domain.Entities.Venta", "Venta")
-                        .WithMany("VentaPagos")
-                        .HasForeignKey("VentaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Venta");
-                });
-
             modelBuilder.Entity("SportZone.Domain.Entities.Articulo", b =>
                 {
                     b.Navigation("Variantes");
@@ -1175,9 +880,9 @@ namespace SportZone.Infrastructure.Migrations
 
             modelBuilder.Entity("SportZone.Domain.Entities.ArticuloVariante", b =>
                 {
-                    b.Navigation("DevolucionDetalles");
-
                     b.Navigation("IngresoDetalles");
+
+                    b.Navigation("MovimientosStock");
 
                     b.Navigation("VentaDetalles");
                 });
@@ -1192,28 +897,21 @@ namespace SportZone.Infrastructure.Migrations
                     b.Navigation("Ventas");
                 });
 
-            modelBuilder.Entity("SportZone.Domain.Entities.Devolucion", b =>
-                {
-                    b.Navigation("DevolucionDetalles");
-                });
-
             modelBuilder.Entity("SportZone.Domain.Entities.Ingreso", b =>
                 {
                     b.Navigation("IngresoDetalles");
+
+                    b.Navigation("MovimientosStock");
                 });
 
             modelBuilder.Entity("SportZone.Domain.Entities.Marca", b =>
                 {
                     b.Navigation("Articulos");
-
-                    b.Navigation("ProveedorMarcas");
                 });
 
             modelBuilder.Entity("SportZone.Domain.Entities.Proveedor", b =>
                 {
                     b.Navigation("Ingresos");
-
-                    b.Navigation("ProveedorMarcas");
                 });
 
             modelBuilder.Entity("SportZone.Domain.Entities.Rol", b =>
@@ -1221,24 +919,11 @@ namespace SportZone.Infrastructure.Migrations
                     b.Navigation("Usuarios");
                 });
 
-            modelBuilder.Entity("SportZone.Domain.Entities.Usuario", b =>
-                {
-                    b.Navigation("Bitacoras");
-
-                    b.Navigation("Devoluciones");
-
-                    b.Navigation("Ingresos");
-
-                    b.Navigation("Ventas");
-                });
-
             modelBuilder.Entity("SportZone.Domain.Entities.Venta", b =>
                 {
-                    b.Navigation("Devoluciones");
+                    b.Navigation("MovimientosStock");
 
                     b.Navigation("VentaDetalles");
-
-                    b.Navigation("VentaPagos");
                 });
 #pragma warning restore 612, 618
         }

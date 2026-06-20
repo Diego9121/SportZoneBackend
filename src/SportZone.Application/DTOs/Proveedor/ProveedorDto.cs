@@ -8,7 +8,5 @@ public class ProveedorDto
     public string? Telefono { get; set; }
     public string? Email { get; set; }
     public string? Direccion { get; set; }
-    public string? CondicionesComerciales { get; set; }
-    public List<MarcaSuministradaDto> Marcas { get; set; } = new();
     public DateTime CreatedAt { get; set; }
 }

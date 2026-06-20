@@ -1,6 +1,6 @@
 namespace SportZone.Application.DTOs.ArticuloVariante;
 
-// StockBajo y PrecioVentaEfectivo son calculados: nunca se guardan en la base de datos.
+// StockBajo es calculado: nunca se guarda en la base de datos.
 public class ArticuloVarianteDto
 {
     public int Id { get; set; }
@@ -16,7 +16,7 @@ public class ArticuloVarianteDto
     public int Stock { get; set; }
     public int StockMinimo { get; set; }
     public bool StockBajo { get; set; }
-    public decimal? PrecioVentaOverride { get; set; }
-    public decimal PrecioVentaEfectivo { get; set; }
+    public decimal PrecioVenta { get; set; }
+    public decimal PrecioCosto { get; set; }
     public DateTime CreatedAt { get; set; }
 }

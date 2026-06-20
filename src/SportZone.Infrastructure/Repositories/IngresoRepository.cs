@@ -11,7 +11,6 @@ public class IngresoRepository : Repository<Ingreso>, IIngresoRepository
     {
         return await _context.Ingresos
             .Include(i => i.Proveedor)
-            .Include(i => i.Usuario)
             .Include(i => i.IngresoDetalles).ThenInclude(d => d.Variante).ThenInclude(v => v.Articulo)
             .FirstOrDefaultAsync(i => i.Id == id);
     }
@@ -21,7 +20,6 @@ public class IngresoRepository : Repository<Ingreso>, IIngresoRepository
         var query = AplicarFiltroYOrden(
             _context.Ingresos
                 .Include(i => i.Proveedor)
-                .Include(i => i.Usuario)
                 .Include(i => i.IngresoDetalles).ThenInclude(d => d.Variante).ThenInclude(v => v.Articulo)
                 .OrderByDescending(i => i.Id), // por defecto: el ingreso más reciente primero
             pquery);
@@ -49,6 +47,17 @@ public class IngresoRepository : Repository<Ingreso>, IIngresoRepository
                 variante.Stock += detalle.Cantidad;
                 variante.UpdateById = usuarioId;
             }
+
+            // Deja constancia del movimiento; al estar en la misma colección de navegación que IngresoDetalles,
+            // EF Core le asigna el IngresoId correcto automáticamente cuando se guarda el Ingreso padre.
+            ingreso.MovimientosStock.Add(new MovimientoStock
+            {
+                ArticuloVarianteId = detalle.VarianteId,
+                TipoMovimiento = "ENTRADA",
+                Cantidad = detalle.Cantidad,
+                NumeroDoc = ingreso.NumeroDoc,
+                CreateById = usuarioId
+            });
         }
 
         await _context.Ingresos.AddAsync(ingreso);

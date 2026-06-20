@@ -9,6 +9,5 @@ public interface IClienteServicio
     Task<ClienteDto?> GetByIdAsync(int id);
     Task<ClienteDto> CreateAsync(CreateClienteDto dto);
     Task<ClienteDto> UpdateAsync(int id, UpdateClienteDto dto);
-    Task<ClienteDto> AjustarPuntosAsync(int id, AjustarPuntosDto dto);
     Task DeleteAsync(int id);
 }

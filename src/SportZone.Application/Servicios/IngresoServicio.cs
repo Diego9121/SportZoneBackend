@@ -11,18 +11,15 @@ public class IngresoServicio : IIngresoServicio
     private readonly IIngresoRepository _repository;
     private readonly IRepository<Proveedor> _proveedorRepository;
     private readonly IArticuloVarianteRepository _varianteRepository;
-    private readonly ICurrentUserService _currentUser;
 
     public IngresoServicio(
         IIngresoRepository repository,
         IRepository<Proveedor> proveedorRepository,
-        IArticuloVarianteRepository varianteRepository,
-        ICurrentUserService currentUser)
+        IArticuloVarianteRepository varianteRepository)
     {
         _repository = repository;
         _proveedorRepository = proveedorRepository;
         _varianteRepository = varianteRepository;
-        _currentUser = currentUser;
     }
 
     public async Task<PagedResultDto<IngresoDto>> GetAllAsync(PaginacionQueryDto query)
@@ -78,9 +75,7 @@ public class IngresoServicio : IIngresoServicio
         var ingreso = new Ingreso
         {
             ProveedorId = dto.ProveedorId,
-            UsuarioId = _currentUser.GetUsuarioId(),
             NumeroDoc = dto.NumeroDoc,
-            FechaDoc = dto.FechaDoc,
             Observacion = dto.Observacion,
             Total = total
         };
@@ -98,10 +93,7 @@ public class IngresoServicio : IIngresoServicio
             Id = ingreso.Id,
             ProveedorId = ingreso.ProveedorId,
             ProveedorNombre = ingreso.Proveedor?.Nombre ?? string.Empty,
-            UsuarioId = ingreso.UsuarioId,
-            UsuarioNombre = ingreso.Usuario?.Nombre ?? string.Empty,
             NumeroDoc = ingreso.NumeroDoc,
-            FechaDoc = ingreso.FechaDoc,
             Total = ingreso.Total,
             Observacion = ingreso.Observacion,
             Detalles = ingreso.IngresoDetalles?.Select(d => new IngresoDetalleDto

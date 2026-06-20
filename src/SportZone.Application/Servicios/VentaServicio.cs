@@ -1,5 +1,4 @@
 using SportZone.Application.Common.Exceptions;
-using SportZone.Application.DTOs.Cliente;
 using SportZone.Application.DTOs.Common;
 using SportZone.Application.DTOs.Venta;
 using SportZone.Application.Interfaces;
@@ -12,21 +11,15 @@ public class VentaServicio : IVentaServicio
     private readonly IVentaRepository _repository;
     private readonly IArticuloVarianteRepository _varianteRepository;
     private readonly IRepository<Cliente> _clienteRepository;
-    private readonly IClienteServicio _clienteServicio;
-    private readonly ICurrentUserService _currentUser;
 
     public VentaServicio(
         IVentaRepository repository,
         IArticuloVarianteRepository varianteRepository,
-        IRepository<Cliente> clienteRepository,
-        IClienteServicio clienteServicio,
-        ICurrentUserService currentUser)
+        IRepository<Cliente> clienteRepository)
     {
         _repository = repository;
         _varianteRepository = varianteRepository;
         _clienteRepository = clienteRepository;
-        _clienteServicio = clienteServicio;
-        _currentUser = currentUser;
     }
 
     public async Task<PagedResultDto<VentaDto>> GetAllAsync(PaginacionQueryDto query)
@@ -75,7 +68,7 @@ public class VentaServicio : IVentaServicio
                 throw new ValidationException(
                     $"Stock insuficiente para la variante Id {d.VarianteId}. Disponible: {variante.Stock}, solicitado: {d.Cantidad}");
 
-            var precioUnitario = variante.PrecioVentaOverride ?? variante.Articulo.PrecioVenta;
+            var precioUnitario = variante.PrecioVenta;
             var subtotalLinea = (d.Cantidad * precioUnitario) - d.Descuento;
 
             subtotal += d.Cantidad * precioUnitario;
@@ -93,28 +86,12 @@ public class VentaServicio : IVentaServicio
 
         var total = subtotal - descuentoTotal;
 
-        if (dto.Pagos.Count == 0)
-            throw new ValidationException("La venta debe tener al menos un metodo de pago");
-
-        var montoPagado = dto.Pagos.Sum(p => p.Monto);
-        if (montoPagado != total)
-            throw new ValidationException(
-                $"La suma de los pagos ({montoPagado:F2}) no coincide con el total de la venta ({total:F2})");
-
-        var pagos = dto.Pagos.Select(p => new VentaPago
-        {
-            MetodoPago = p.MetodoPago,
-            Monto = p.Monto,
-            Referencia = p.Referencia
-        }).ToList();
-
         var prefijo = dto.TipoComprobante == "FACTURA" ? "FAC" : "REC";
         var numeroDoc = $"{prefijo}-{DateTime.UtcNow:yyyyMMddHHmmssfff}";
 
         var venta = new Venta
         {
             ClienteId = dto.ClienteId,
-            UsuarioId = _currentUser.GetUsuarioId(),
             NumeroDoc = numeroDoc,
             TipoComprobante = dto.TipoComprobante,
             Subtotal = subtotal,
@@ -124,15 +101,7 @@ public class VentaServicio : IVentaServicio
             Observacion = dto.Observacion
         };
 
-        var creada = await _repository.CrearConDetalleAsync(venta, detalles, pagos);
-
-        // Fidelización: 1 punto acumulado por cada 10 (unidad monetaria) gastados
-        if (dto.ClienteId.HasValue)
-        {
-            var puntosGanados = (int)(total / 10);
-            if (puntosGanados > 0)
-                await _clienteServicio.AjustarPuntosAsync(dto.ClienteId.Value, new AjustarPuntosDto { Puntos = puntosGanados });
-        }
+        var creada = await _repository.CrearConDetalleAsync(venta, detalles);
 
         var creadaConDetalle = await _repository.GetByIdWithDetalleAsync(creada.Id);
         return MapToDto(creadaConDetalle!);
@@ -160,8 +129,6 @@ public class VentaServicio : IVentaServicio
             Id = venta.Id,
             ClienteId = venta.ClienteId,
             ClienteNombre = venta.Cliente?.Nombre,
-            UsuarioId = venta.UsuarioId,
-            UsuarioNombre = venta.Usuario?.Nombre ?? string.Empty,
             NumeroDoc = venta.NumeroDoc,
             TipoComprobante = venta.TipoComprobante,
             Subtotal = venta.Subtotal,
@@ -179,13 +146,6 @@ public class VentaServicio : IVentaServicio
                 Descuento = d.Descuento,
                 Subtotal = d.Subtotal
             }).ToList() ?? new List<VentaDetalleDto>(),
-            Pagos = venta.VentaPagos?.Select(p => new VentaPagoDto
-            {
-                Id = p.Id,
-                MetodoPago = p.MetodoPago,
-                Monto = p.Monto,
-                Referencia = p.Referencia
-            }).ToList() ?? new List<VentaPagoDto>(),
             CreatedAt = venta.CreatedAt
         };
     }
