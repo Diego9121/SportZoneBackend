@@ -26,8 +26,6 @@ public class MovimientoStockRepository : Repository<MovimientoStock>, IMovimient
 
         query = AplicarFiltroYOrden(query.OrderByDescending(m => m.Id), pquery);
 
-        var totalCount = await query.CountAsync();
-        var items = await query.Skip((pquery.Page - 1) * pquery.PageSize).Take(pquery.PageSize).ToListAsync();
-        return (items, totalCount);
+        return await PaginarAsync(query, pquery);
     }
 }

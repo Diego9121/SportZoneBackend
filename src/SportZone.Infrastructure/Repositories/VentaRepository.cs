@@ -24,9 +24,7 @@ public class VentaRepository : Repository<Venta>, IVentaRepository
                 .OrderByDescending(v => v.Id), // por defecto: la venta más reciente primero
             pquery);
 
-        var totalCount = await query.CountAsync();
-        var items = await query.Skip((pquery.Page - 1) * pquery.PageSize).Take(pquery.PageSize).ToListAsync();
-        return (items, totalCount);
+        return await PaginarAsync(query, pquery);
     }
 
     public async Task<Venta> CrearConDetalleAsync(Venta venta, List<VentaDetalle> detalles)

@@ -35,12 +35,13 @@ public class ArticuloServicio : IArticuloServicio
         };
     }
 
-    public async Task<ArticuloDto?> GetByIdAsync(int id)
+    public async Task<ArticuloDetalleDto?> GetByIdAsync(int id)
     {
         var articulo = await _repository.GetByIdWithDetallesAsync(id);
-        return articulo == null ? null : MapToDto(articulo);
+        return articulo == null ? null : MapToDetalleDto(articulo);
     }
 
+    // Imagen llega como URL: el frontend la sube primero a /api/Imagenes y manda esa URL aquí
     public async Task<ArticuloDto> CreateAsync(CreateArticuloDto dto)
     {
         if (await _repository.ExisteAsync(a => a.Codigo == dto.Codigo))
@@ -116,6 +117,40 @@ public class ArticuloServicio : IArticuloServicio
             Imagen = articulo.Imagen,
             TotalVariantes = articulo.Variantes?.Count ?? 0,
             StockTotal = articulo.Variantes?.Sum(v => v.Stock) ?? 0,
+            CreatedAt = articulo.CreatedAt
+        };
+    }
+
+    private static ArticuloDetalleDto MapToDetalleDto(Articulo articulo)
+    {
+        return new ArticuloDetalleDto
+        {
+            Id = articulo.Id,
+            CategoriaId = articulo.CategoriaId,
+            CategoriaNombre = articulo.Categoria?.Nombre ?? string.Empty,
+            MarcaId = articulo.MarcaId,
+            MarcaNombre = articulo.Marca?.Nombre ?? string.Empty,
+            Codigo = articulo.Codigo,
+            Nombre = articulo.Nombre,
+            Descripcion = articulo.Descripcion,
+            Imagen = articulo.Imagen,
+            TotalVariantes = articulo.Variantes?.Count ?? 0,
+            StockTotal = articulo.Variantes?.Sum(v => v.Stock) ?? 0,
+            Variantes = articulo.Variantes?.Select(v => new ArticuloVarianteResumenDto
+            {
+                Id = v.Id,
+                TallaUs = v.TallaUs,
+                TallaEu = v.TallaEu,
+                TallaUk = v.TallaUk,
+                TallaCm = v.TallaCm,
+                Color = v.Color,
+                CodigoBarras = v.CodigoBarras,
+                Stock = v.Stock,
+                StockMinimo = v.StockMinimo,
+                StockBajo = v.Stock <= v.StockMinimo,
+                PrecioVenta = v.PrecioVenta,
+                PrecioCosto = v.PrecioCosto
+            }).ToList() ?? new List<ArticuloVarianteResumenDto>(),
             CreatedAt = articulo.CreatedAt
         };
     }

@@ -36,6 +36,12 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
         return variante == null ? null : MapToDto(variante);
     }
 
+    public async Task<ArticuloVarianteDto?> GetByCodigoBarrasAsync(string codigoBarras)
+    {
+        var variante = await _repository.GetByCodigoBarrasAsync(codigoBarras);
+        return variante == null ? null : MapToDto(variante);
+    }
+
     public async Task<IEnumerable<ArticuloVarianteDto>> GetStockBajoAsync()
     {
         var variantes = await _repository.GetStockBajoAsync();

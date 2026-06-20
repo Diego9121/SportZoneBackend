@@ -2,6 +2,7 @@ namespace SportZone.Application.DTOs.Articulo;
 
 // DTO de salida: CategoriaNombre/MarcaNombre vienen aplanados desde sus relaciones.
 // El precio ya no vive aquí: cada variante (talla/color) tiene su propio precio.
+// El detalle de cada variante se consulta aparte con GET /api/ArticuloVariantes?articuloId=X
 public class ArticuloDto
 {
     public int Id { get; set; }

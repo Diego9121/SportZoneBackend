@@ -34,6 +34,7 @@ public class MarcaServicio : IMarcaServicio
         return marca == null ? null : MapToDto(marca);
     }
 
+    // Logo llega como URL: el frontend la sube primero a /api/Imagenes y manda esa URL aquí
     public async Task<MarcaDto> CreateAsync(CreateMarcaDto dto)
     {
         if (await _repository.ExisteAsync(m => m.Nombre == dto.Nombre))

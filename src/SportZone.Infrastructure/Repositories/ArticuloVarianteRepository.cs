@@ -12,6 +12,13 @@ public class ArticuloVarianteRepository : Repository<ArticuloVariante>, IArticul
         return await _context.ArticuloVariantes.Include(v => v.Articulo).FirstOrDefaultAsync(v => v.Id == id);
     }
 
+    public async Task<ArticuloVariante?> GetByCodigoBarrasAsync(string codigoBarras)
+    {
+        return await _context.ArticuloVariantes
+            .Include(v => v.Articulo)
+            .FirstOrDefaultAsync(v => v.CodigoBarras == codigoBarras);
+    }
+
     public async Task<(IEnumerable<ArticuloVariante> Items, int TotalCount)> GetPagedWithArticuloAsync(
         PaginacionQueryDto pquery, int? articuloId)
     {
@@ -22,9 +29,7 @@ public class ArticuloVarianteRepository : Repository<ArticuloVariante>, IArticul
 
         query = AplicarFiltroYOrden(query, pquery);
 
-        var totalCount = await query.CountAsync();
-        var items = await query.Skip((pquery.Page - 1) * pquery.PageSize).Take(pquery.PageSize).ToListAsync();
-        return (items, totalCount);
+        return await PaginarAsync(query, pquery);
     }
 
     public async Task<IEnumerable<ArticuloVariante>> GetStockBajoAsync()

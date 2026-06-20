@@ -32,8 +32,24 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
     public async Task<(IEnumerable<T> Items, int TotalCount)> GetPagedAsync(PaginacionQueryDto query)
     {
         var consulta = AplicarFiltroYOrden(_context.Set<T>().OrderBy(e => e.Id), query);
-        var totalCount = await consulta.CountAsync();
-        var items = await consulta.Skip((query.Page - 1) * query.PageSize).Take(query.PageSize).ToListAsync();
+        return await PaginarAsync(consulta, query);
+    }
+
+    // Punto de extensión compartido: todos los repositorios específicos (ArticuloRepository, VentaRepository, etc.)
+    // llaman a este mismo método sobre su propio IQueryable en vez de repetir el Skip/Take en cada uno.
+    // Si pquery.IsPage es false, devuelve TODOS los resultados (ya filtrados/ordenados) sin recortar.
+    protected static async Task<(IEnumerable<TEntity> Items, int TotalCount)> PaginarAsync<TEntity>(
+        IQueryable<TEntity> query, PaginacionQueryDto pquery)
+    {
+        var totalCount = await query.CountAsync();
+
+        if (!pquery.IsPage)
+        {
+            var todos = await query.ToListAsync();
+            return (todos, totalCount);
+        }
+
+        var items = await query.Skip((pquery.Page - 1) * pquery.PageSize).Take(pquery.PageSize).ToListAsync();
         return (items, totalCount);
     }
 

@@ -7,6 +7,7 @@ public interface IArticuloVarianteServicio
 {
     Task<PagedResultDto<ArticuloVarianteDto>> GetAllAsync(PaginacionQueryDto query, int? articuloId);
     Task<ArticuloVarianteDto?> GetByIdAsync(int id);
+    Task<ArticuloVarianteDto?> GetByCodigoBarrasAsync(string codigoBarras);
     Task<IEnumerable<ArticuloVarianteDto>> GetStockBajoAsync();
     Task<ArticuloVarianteDto> CreateAsync(CreateArticuloVarianteDto dto);
     Task<ArticuloVarianteDto> UpdateAsync(int id, UpdateArticuloVarianteDto dto);

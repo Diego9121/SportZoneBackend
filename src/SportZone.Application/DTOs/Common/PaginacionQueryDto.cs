@@ -28,4 +28,8 @@ public class PaginacionQueryDto
 
     // "asc" | "desc". Cualquier otro valor (o ausencia) se trata como "asc".
     public string? SortDirection { get; set; }
+
+    // true (default): aplica Page/PageSize normalmente. false: ignora Page/PageSize y devuelve TODOS los resultados
+    // (filtrados y ordenados igual). Si el cliente no manda el parámetro, queda en true automáticamente.
+    public bool IsPage { get; set; } = true;
 }

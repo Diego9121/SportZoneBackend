@@ -37,6 +37,14 @@ public class ArticuloVariantesController : BaseController
         return variante == null ? NotFound() : RespuestaOk(variante);
     }
 
+    // Ruta de texto fija; pensada para el escaneo de código de barras en el punto de venta
+    [HttpGet("codigo-barras/{codigo}")]
+    public async Task<IActionResult> GetByCodigoBarras(string codigo)
+    {
+        var variante = await _servicio.GetByCodigoBarrasAsync(codigo);
+        return variante == null ? NotFound() : RespuestaOk(variante);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create(CreateArticuloVarianteDto dto)
     {

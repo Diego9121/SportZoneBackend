@@ -24,9 +24,7 @@ public class IngresoRepository : Repository<Ingreso>, IIngresoRepository
                 .OrderByDescending(i => i.Id), // por defecto: el ingreso más reciente primero
             pquery);
 
-        var totalCount = await query.CountAsync();
-        var items = await query.Skip((pquery.Page - 1) * pquery.PageSize).Take(pquery.PageSize).ToListAsync();
-        return (items, totalCount);
+        return await PaginarAsync(query, pquery);
     }
 
     // Todo en un solo SaveChangesAsync -> EF Core lo ejecuta como una única transacción atómica:
