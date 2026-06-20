@@ -1,0 +1,13 @@
+global using SportZone.Domain.Common;
+global using SportZone.Domain.Entities;
+global using SportZone.Infrastructure.Persistence;
+global using SportZone.Infrastructure.Persistence.Configurations;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using SportZone.Application.Interfaces;
+global using SportZone.Application.DTOs.Common;
+global using SportZone.Infrastructure.Repositories;
+global using System.Linq.Expressions;
+global using System.Reflection;

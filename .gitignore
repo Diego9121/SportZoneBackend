@@ -1,0 +1,24 @@
+# Carpetas de compilación (se regeneran con "dotnet build", nunca deben subirse)
+[Bb]in/
+[Oo]bj/
+
+# Archivos de Visual Studio / VS Code
+.vs/
+.vscode/*
+!.vscode/extensions.json
+*.user
+*.suo
+
+# Resultados de pruebas
+[Tt]est[Rr]esult*/
+
+# NuGet
+*.nupkg
+.nuget/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuración local de Claude Code (no es parte del proyecto)
+.claude/
