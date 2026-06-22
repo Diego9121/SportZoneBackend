@@ -43,6 +43,7 @@ public class IngresoRepository : Repository<Ingreso>, IIngresoRepository
             if (variante != null)
             {
                 variante.Stock += detalle.Cantidad;
+                variante.PrecioCosto = detalle.PrecioCosto; // el último costo de compra queda como costo vigente de la variante
                 variante.UpdateById = usuarioId;
             }
 

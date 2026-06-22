@@ -27,10 +27,10 @@ public class MovimientoStockServicio : IMovimientoStockServicio
         };
     }
 
-    public async Task<MovimientoStockDto?> GetByIdAsync(int id)
+    public async Task<IEnumerable<MovimientoStockDto>> GetByVarianteIdAsync(int varianteId)
     {
-        var movimiento = await _repository.GetByIdWithDetalleAsync(id);
-        return movimiento == null ? null : MapToDto(movimiento);
+        var movimientos = await _repository.GetByVarianteIdAsync(varianteId);
+        return movimientos.Select(MapToDto);
     }
 
     private static MovimientoStockDto MapToDto(MovimientoStock movimiento)

@@ -8,5 +8,5 @@ namespace SportZone.Application.Interfaces.Servicios;
 public interface IMovimientoStockServicio
 {
     Task<PagedResultDto<MovimientoStockDto>> GetAllAsync(PaginacionQueryDto query, int? articuloVarianteId);
-    Task<MovimientoStockDto?> GetByIdAsync(int id);
+    Task<IEnumerable<MovimientoStockDto>> GetByVarianteIdAsync(int varianteId);
 }

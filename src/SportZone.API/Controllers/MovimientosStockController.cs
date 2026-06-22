@@ -22,10 +22,12 @@ public class MovimientosStockController : BaseController
         return RespuestaOk(resultado);
     }
 
+    // GET /api/MovimientosStock/5  ->  5 aquí es el Id de la VARIANTE, no el del movimiento.
+    // Devuelve TODO el historial de movimientos de esa variante (puede ser una lista vacía).
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetByVarianteId(int id)
     {
-        var movimiento = await _servicio.GetByIdAsync(id);
-        return movimiento == null ? NotFound() : RespuestaOk(movimiento);
+        var resultado = await _servicio.GetByVarianteIdAsync(id);
+        return RespuestaOk(resultado);
     }
 }

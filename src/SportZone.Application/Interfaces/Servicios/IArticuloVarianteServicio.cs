@@ -5,7 +5,10 @@ namespace SportZone.Application.Interfaces.Servicios;
 
 public interface IArticuloVarianteServicio
 {
-    Task<PagedResultDto<ArticuloVarianteDto>> GetAllAsync(PaginacionQueryDto query, int? articuloId);
+    Task<PagedResultDto<ArticuloVarianteDto>> GetAllAsync(PaginacionQueryDto query, int? articuloId, string? talla, int? stock);
+
+    // Igual que GetAllAsync pero con nombre completo del articulo + URL de imagen (catálogo/POS/consulta móvil)
+    Task<PagedResultDto<ArticuloVarianteCatalogoDto>> GetCatalogoAsync(PaginacionQueryDto query, int? articuloId, string? talla, int? stock);
     Task<ArticuloVarianteDto?> GetByIdAsync(int id);
     Task<ArticuloVarianteDto?> GetByCodigoBarrasAsync(string codigoBarras);
     Task<IEnumerable<ArticuloVarianteDto>> GetStockBajoAsync();

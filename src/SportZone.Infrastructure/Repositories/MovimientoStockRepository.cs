@@ -7,11 +7,13 @@ public class MovimientoStockRepository : Repository<MovimientoStock>, IMovimient
     {
     }
 
-    public async Task<MovimientoStock?> GetByIdWithDetalleAsync(int id)
+    public async Task<IEnumerable<MovimientoStock>> GetByVarianteIdAsync(int varianteId)
     {
         return await _context.MovimientosStock
             .Include(m => m.ArticuloVariante).ThenInclude(v => v.Articulo)
-            .FirstOrDefaultAsync(m => m.Id == id);
+            .Where(m => m.ArticuloVarianteId == varianteId)
+            .OrderByDescending(m => m.Id)
+            .ToListAsync();
     }
 
     public async Task<(IEnumerable<MovimientoStock> Items, int TotalCount)> GetPagedWithDetalleAsync(

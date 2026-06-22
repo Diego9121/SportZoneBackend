@@ -14,11 +14,26 @@ public class ArticuloVariantesController : BaseController
         _servicio = servicio;
     }
 
-    // GET /api/ArticuloVariantes?page=1&pageSize=10&articuloId=3  (articuloId es opcional)
+    // GET /api/ArticuloVariantes?page=1&pageSize=10&articuloId=3&talla=42&stock=5&filter=umbro
+    // articuloId, talla y stock son opcionales. filter ya busca por nombre del articulo, color, codigo de
+    // barras, tallas y precios. talla busca ese valor en TallaUs/TallaEu/TallaUk/TallaCm (los 4 formatos).
+    // stock NO es igualdad: es "al menos este stock" (ej. stock=5 -> devuelve variantes con Stock >= 5).
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] PaginacionQueryDto query, [FromQuery] int? articuloId)
+    public async Task<IActionResult> GetAll(
+        [FromQuery] PaginacionQueryDto query, [FromQuery] int? articuloId, [FromQuery] string? talla, [FromQuery] int? stock)
     {
-        var resultado = await _servicio.GetAllAsync(query, articuloId);
+        var resultado = await _servicio.GetAllAsync(query, articuloId, talla, stock);
+        return RespuestaOk(resultado);
+    }
+
+    // GET /api/ArticuloVariantes/catalogo?... (mismos filtros que GetAll: articuloId, talla, stock, filter, etc.)
+    // A diferencia de GetAll, cada item trae el nombre completo del articulo y la URL de su imagen
+    // (pantallas de catálogo, POS o consulta móvil que necesitan mostrar la foto del producto).
+    [HttpGet("catalogo")]
+    public async Task<IActionResult> GetCatalogo(
+        [FromQuery] PaginacionQueryDto query, [FromQuery] int? articuloId, [FromQuery] string? talla, [FromQuery] int? stock)
+    {
+        var resultado = await _servicio.GetCatalogoAsync(query, articuloId, talla, stock);
         return RespuestaOk(resultado);
     }
 

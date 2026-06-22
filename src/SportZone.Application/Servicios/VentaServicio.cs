@@ -79,6 +79,7 @@ public class VentaServicio : IVentaServicio
                 VarianteId = d.VarianteId,
                 Cantidad = d.Cantidad,
                 PrecioUnitario = precioUnitario,
+                PrecioCosto = variante.PrecioCosto, // costo vigente de la variante en el momento de la venta
                 Descuento = d.Descuento,
                 Subtotal = subtotalLinea
             });
@@ -143,6 +144,7 @@ public class VentaServicio : IVentaServicio
                 VarianteDescripcion = DescribirVariante(d.Variante),
                 Cantidad = d.Cantidad,
                 PrecioUnitario = d.PrecioUnitario,
+                PrecioCosto = d.PrecioCosto,
                 Descuento = d.Descuento,
                 Subtotal = d.Subtotal
             }).ToList() ?? new List<VentaDetalleDto>(),

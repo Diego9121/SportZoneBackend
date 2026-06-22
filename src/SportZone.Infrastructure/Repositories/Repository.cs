@@ -130,7 +130,9 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
     }
 
     // Ordena dinámicamente por el nombre de propiedad recibido desde la URL (?sortBy=Nombre&sortDirection=desc)
-    private static IQueryable<T> AplicarOrden(IQueryable<T> query, string sortBy, string? sortDirection)
+    // protected: ArticuloVarianteRepository la usa sola, sin pasar por AplicarFiltroYOrden, porque su filtro
+    // de texto necesita lógica propia (junta variante + nombre del Articulo padre).
+    protected static IQueryable<T> AplicarOrden(IQueryable<T> query, string sortBy, string? sortDirection)
     {
         var propiedad = typeof(T).GetProperty(sortBy, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
         if (propiedad == null)

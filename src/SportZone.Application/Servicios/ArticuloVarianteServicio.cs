@@ -17,13 +17,26 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
         _articuloRepository = articuloRepository;
     }
 
-    public async Task<PagedResultDto<ArticuloVarianteDto>> GetAllAsync(PaginacionQueryDto query, int? articuloId)
+    public async Task<PagedResultDto<ArticuloVarianteDto>> GetAllAsync(PaginacionQueryDto query, int? articuloId, string? talla, int? stock)
     {
-        var (items, totalCount) = await _repository.GetPagedWithArticuloAsync(query, articuloId);
+        var (items, totalCount) = await _repository.GetPagedWithArticuloAsync(query, articuloId, talla, stock);
 
         return new PagedResultDto<ArticuloVarianteDto>
         {
             Items = items.Select(MapToDto),
+            TotalCount = totalCount,
+            Page = query.Page,
+            PageSize = query.PageSize
+        };
+    }
+
+    public async Task<PagedResultDto<ArticuloVarianteCatalogoDto>> GetCatalogoAsync(PaginacionQueryDto query, int? articuloId, string? talla, int? stock)
+    {
+        var (items, totalCount) = await _repository.GetPagedWithArticuloAsync(query, articuloId, talla, stock);
+
+        return new PagedResultDto<ArticuloVarianteCatalogoDto>
+        {
+            Items = items.Select(MapToCatalogoDto),
             TotalCount = totalCount,
             Page = query.Page,
             PageSize = query.PageSize
@@ -155,6 +168,26 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
             PrecioVenta = variante.PrecioVenta,
             PrecioCosto = variante.PrecioCosto,
             CreatedAt = variante.CreatedAt
+        };
+    }
+
+    private static ArticuloVarianteCatalogoDto MapToCatalogoDto(ArticuloVariante variante)
+    {
+        return new ArticuloVarianteCatalogoDto
+        {
+            Id = variante.Id,
+            ArticuloId = variante.ArticuloId,
+            ArticuloNombre = variante.Articulo?.Nombre ?? string.Empty,
+            ArticuloImagen = variante.Articulo?.Imagen,
+            TallaUs = variante.TallaUs,
+            TallaEu = variante.TallaEu,
+            TallaUk = variante.TallaUk,
+            TallaCm = variante.TallaCm,
+            Color = variante.Color,
+            CodigoBarras = variante.CodigoBarras,
+            Stock = variante.Stock,
+            PrecioVenta = variante.PrecioVenta,
+            PrecioCosto = variante.PrecioCosto
         };
     }
 }

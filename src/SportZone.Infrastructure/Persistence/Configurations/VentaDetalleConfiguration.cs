@@ -7,6 +7,10 @@ public class VentaDetalleConfiguration : BaseEntityConfiguration<VentaDetalle>
         base.Configure(builder);
         builder.ToTable("VentaDetalles");
         builder.Property(e => e.PrecioUnitario).HasPrecision(10, 2).IsRequired();
+
+        // HasDefaultValue(0): para las ventas que ya existían antes de esta columna, la migración las deja en 0
+        builder.Property(e => e.PrecioCosto).HasPrecision(10, 2).IsRequired().HasDefaultValue(0m);
+
         builder.Property(e => e.Descuento).HasPrecision(10, 2).IsRequired();
         builder.Property(e => e.Subtotal).HasPrecision(10, 2).IsRequired();
 
