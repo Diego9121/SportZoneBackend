@@ -145,6 +145,8 @@ public class ArticuloServicio : IArticuloServicio
                 TallaCm = v.TallaCm,
                 Color = v.Color,
                 CodigoBarras = v.CodigoBarras,
+                ArticuloImagen = articulo.Imagen,
+                ImagenUrl = v.ImagenUrl,
                 Stock = v.Stock,
                 StockMinimo = v.StockMinimo,
                 StockBajo = v.Stock <= v.StockMinimo,

@@ -83,6 +83,7 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
             TallaCm = dto.TallaCm,
             Color = dto.Color,
             CodigoBarras = dto.CodigoBarras,
+            ImagenUrl = dto.ImagenUrl,
             Stock = dto.Stock,
             StockMinimo = dto.StockMinimo,
             PrecioVenta = dto.PrecioVenta,
@@ -115,6 +116,7 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
         variante.TallaCm = dto.TallaCm;
         variante.Color = dto.Color;
         variante.CodigoBarras = dto.CodigoBarras;
+        variante.ImagenUrl = dto.ImagenUrl;
         variante.StockMinimo = dto.StockMinimo;
         variante.PrecioVenta = dto.PrecioVenta;
         variante.PrecioCosto = dto.PrecioCosto;
@@ -156,12 +158,14 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
             ArticuloId = variante.ArticuloId,
             ArticuloNombre = variante.Articulo?.Nombre ?? string.Empty,
             ArticuloCodigo = variante.Articulo?.Codigo ?? string.Empty,
+            ArticuloImagen = variante.Articulo?.Imagen,
             TallaUs = variante.TallaUs,
             TallaEu = variante.TallaEu,
             TallaUk = variante.TallaUk,
             TallaCm = variante.TallaCm,
             Color = variante.Color,
             CodigoBarras = variante.CodigoBarras,
+            ImagenUrl = variante.ImagenUrl,
             Stock = variante.Stock,
             StockMinimo = variante.StockMinimo,
             StockBajo = variante.Stock <= variante.StockMinimo,
@@ -185,6 +189,7 @@ public class ArticuloVarianteServicio : IArticuloVarianteServicio
             TallaCm = variante.TallaCm,
             Color = variante.Color,
             CodigoBarras = variante.CodigoBarras,
+            ImagenUrl = variante.ImagenUrl,
             Stock = variante.Stock,
             PrecioVenta = variante.PrecioVenta,
             PrecioCosto = variante.PrecioCosto

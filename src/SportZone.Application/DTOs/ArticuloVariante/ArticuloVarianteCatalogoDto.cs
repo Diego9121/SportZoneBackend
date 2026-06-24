@@ -14,6 +14,7 @@ public class ArticuloVarianteCatalogoDto
     public string? TallaCm { get; set; }
     public string? Color { get; set; }
     public string? CodigoBarras { get; set; }
+    public string? ImagenUrl { get; set; }
     public int Stock { get; set; }
     public decimal PrecioVenta { get; set; }
     public decimal PrecioCosto { get; set; }

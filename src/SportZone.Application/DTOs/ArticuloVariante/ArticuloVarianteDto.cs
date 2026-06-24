@@ -7,12 +7,14 @@ public class ArticuloVarianteDto
     public int ArticuloId { get; set; }
     public string ArticuloNombre { get; set; } = string.Empty;
     public string ArticuloCodigo { get; set; } = string.Empty;
+    public string? ArticuloImagen { get; set; }
     public string? TallaUs { get; set; }
     public string? TallaEu { get; set; }
     public string? TallaUk { get; set; }
     public string? TallaCm { get; set; }
     public string? Color { get; set; }
     public string? CodigoBarras { get; set; }
+    public string? ImagenUrl { get; set; }
     public int Stock { get; set; }
     public int StockMinimo { get; set; }
     public bool StockBajo { get; set; }

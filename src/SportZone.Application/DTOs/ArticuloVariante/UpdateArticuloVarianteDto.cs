@@ -9,6 +9,7 @@ public class UpdateArticuloVarianteDto
     public string? TallaCm { get; set; }
     public string? Color { get; set; }
     public string? CodigoBarras { get; set; }
+    public string? ImagenUrl { get; set; }
     public int StockMinimo { get; set; }
     public decimal PrecioVenta { get; set; }
     public decimal PrecioCosto { get; set; }
