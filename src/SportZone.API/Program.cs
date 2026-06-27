@@ -4,6 +4,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SportZone.API.Middleware;
 using SportZone.Application;
+using SportZone.Application.Common.Exceptions;
+using SportZone.Application.Interfaces.Servicios;
 using SportZone.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -86,6 +88,25 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Siembra roles/usuario admin, catalogo de productos y datos ficticios de compras/ventas.
+    // Cada seeder es idempotente: si ya hay datos, no hace nada (ver sus respectivas implementaciones).
+    using var scope = app.Services.CreateScope();
+    await scope.ServiceProvider.GetRequiredService<IUsuarioSeederServicio>().SeedAsync();
+
+    var dataSeeder = scope.ServiceProvider.GetRequiredService<IDataSeederServicio>();
+    var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
+    try
+    {
+        var rutaSeed = Path.Combine(env.ContentRootPath, "Common", "Data", "Seeder.json");
+        await dataSeeder.CargarDesdeJsonAsync(rutaSeed);
+    }
+    catch (ValidationException)
+    {
+        // Ya se cargo en un arranque anterior; SeederController sigue disponible para recargas manuales.
+    }
+
+    await scope.ServiceProvider.GetRequiredService<IDatosFicticiosSeederServicio>().SeedAsync();
 }
 
 app.UseHttpsRedirection();

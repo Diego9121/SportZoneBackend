@@ -26,7 +26,10 @@ public static class DependencyInjection
         services.AddScoped<IVentaRepository, VentaRepository>();
         services.AddScoped<IMovimientoStockRepository, MovimientoStockRepository>();
         services.AddScoped<IReporteRepository, ReporteRepository>();
+        services.AddScoped<IDashboardRepository, DashboardRepository>();
         services.AddScoped<IDataSeederServicio, DataSeederServicio>();
+        services.AddScoped<IUsuarioSeederServicio, UsuarioSeederServicio>();
+        services.AddScoped<IDatosFicticiosSeederServicio, DatosFicticiosSeederServicio>();
         services.AddScoped<IImagenService, CloudinaryImagenService>();
 
         return services;

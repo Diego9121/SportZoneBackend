@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:uml="http://schema.omg.org/spec/UML/2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1">
+  <xmi:Documentation exporter="SportZone" exporterVersion="1.0" notice="Modelo UML del backend SportZone. Importar en Enterprise Architect via Project mayor Import Package from XMI File. Los elementos (clases, atributos, relaciones, lifelines, mensajes, nodos de actividad) quedan correctos en el Project Browser; el layout visual de cada diagrama se acomoda en EA con Layout mayor Auto Layout tras arrastrar los elementos a un diagrama nuevo."/>
+  <uml:Model xmi:type="uml:Model" xmi:id="model_SportZone" name="SportZone">
+
+    <!-- ============================================================ -->
+    <!-- PAQUETE 0: TIPOS PRIMITIVOS (autocontenido, sin depender de libreria externa) -->
+    <!-- ============================================================ -->
+    <packagedElement xmi:type="uml:Package" xmi:id="pkg_tipos" name="Tipos Primitivos">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="id_Integer" name="Integer"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="id_String" name="String"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="id_Boolean" name="Boolean"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="id_DateTime" name="DateTime"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="id_Decimal" name="Decimal"/>
+    </packagedElement>
+
+    <!-- ============================================================ -->
+    <!-- PAQUETE 1: MODELO DE DOMINIO (Diagrama de Clases, seccion 3.1) -->
+    <!-- ============================================================ -->
+    <packagedElement xmi:type="uml:Package" xmi:id="pkg_dominio" name="Modelo de Dominio">
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_BaseEntity" name="BaseEntity" isAbstract="true">
+        <ownedAttribute xmi:id="attr_BaseEntity_Id" name="Id" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_BaseEntity_CreatedAt" name="CreatedAt" visibility="public" type="id_DateTime"/>
+        <ownedAttribute xmi:id="attr_BaseEntity_UpdatedAt" name="UpdatedAt" visibility="public" type="id_DateTime"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+        <ownedAttribute xmi:id="attr_BaseEntity_DeletedAt" name="DeletedAt" visibility="public" type="id_DateTime"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_Rol" name="Rol">
+        <generalization xmi:id="gen_Rol" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_Rol_Nombre" name="Nombre" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Rol_Descripcion" name="Descripcion" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_Usuario" name="Usuario">
+        <generalization xmi:id="gen_Usuario" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_Usuario_RolId" name="RolId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_Usuario_Nombre" name="Nombre" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Usuario_Email" name="Email" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Usuario_PasswordHash" name="PasswordHash" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Usuario_Activo" name="Activo" visibility="public" type="id_Boolean"/>
+        <ownedAttribute xmi:id="attr_Usuario_UltimoAcceso" name="UltimoAcceso" visibility="public" type="id_DateTime"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_Categoria" name="Categoria">
+        <generalization xmi:id="gen_Categoria" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_Categoria_Nombre" name="Nombre" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Categoria_Descripcion" name="Descripcion" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_Marca" name="Marca">
+        <generalization xmi:id="gen_Marca" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_Marca_Nombre" name="Nombre" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Marca_Logo" name="Logo" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_Articulo" name="Articulo">
+        <generalization xmi:id="gen_Articulo" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_Articulo_CategoriaId" name="CategoriaId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_Articulo_MarcaId" name="MarcaId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_Articulo_Codigo" name="Codigo" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Articulo_Nombre" name="Nombre" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Articulo_Imagen" name="Imagen" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_ArticuloVariante" name="ArticuloVariante">
+        <generalization xmi:id="gen_ArticuloVariante" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_AV_ArticuloId" name="ArticuloId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_AV_TallaUs" name="TallaUs" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+        <ownedAttribute xmi:id="attr_AV_Color" name="Color" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+        <ownedAttribute xmi:id="attr_AV_CodigoBarras" name="CodigoBarras" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+        <ownedAttribute xmi:id="attr_AV_ImagenUrl" name="ImagenUrl" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+        <ownedAttribute xmi:id="attr_AV_Stock" name="Stock" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_AV_StockMinimo" name="StockMinimo" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_AV_PrecioVenta" name="PrecioVenta" visibility="public" type="id_Decimal"/>
+        <ownedAttribute xmi:id="attr_AV_PrecioCosto" name="PrecioCosto" visibility="public" type="id_Decimal"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_Proveedor" name="Proveedor">
+        <generalization xmi:id="gen_Proveedor" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_Proveedor_Nombre" name="Nombre" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Proveedor_Telefono" name="Telefono" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_Ingreso" name="Ingreso">
+        <generalization xmi:id="gen_Ingreso" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_Ingreso_ProveedorId" name="ProveedorId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_Ingreso_NumeroDoc" name="NumeroDoc" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+        <ownedAttribute xmi:id="attr_Ingreso_Total" name="Total" visibility="public" type="id_Decimal"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_IngresoDetalle" name="IngresoDetalle">
+        <generalization xmi:id="gen_IngresoDetalle" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_ID_IngresoId" name="IngresoId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_ID_VarianteId" name="VarianteId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_ID_Cantidad" name="Cantidad" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_ID_PrecioCosto" name="PrecioCosto" visibility="public" type="id_Decimal"/>
+        <ownedAttribute xmi:id="attr_ID_Subtotal" name="Subtotal" visibility="public" type="id_Decimal"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_Cliente" name="Cliente">
+        <generalization xmi:id="gen_Cliente" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_Cliente_Nombre" name="Nombre" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Cliente_Documento" name="Documento" visibility="public" type="id_String"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_Venta" name="Venta">
+        <generalization xmi:id="gen_Venta" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_Venta_ClienteId" name="ClienteId" visibility="public" type="id_Integer"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+        <ownedAttribute xmi:id="attr_Venta_NumeroDoc" name="NumeroDoc" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Venta_Estado" name="Estado" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_Venta_Total" name="Total" visibility="public" type="id_Decimal"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_VentaDetalle" name="VentaDetalle">
+        <generalization xmi:id="gen_VentaDetalle" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_VD_VentaId" name="VentaId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_VD_VarianteId" name="VarianteId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_VD_Cantidad" name="Cantidad" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_VD_PrecioUnitario" name="PrecioUnitario" visibility="public" type="id_Decimal"/>
+        <ownedAttribute xmi:id="attr_VD_PrecioCosto" name="PrecioCosto" visibility="public" type="id_Decimal"/>
+        <ownedAttribute xmi:id="attr_VD_Subtotal" name="Subtotal" visibility="public" type="id_Decimal"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="id_MovimientoStock" name="MovimientoStock">
+        <generalization xmi:id="gen_MovimientoStock" general="id_BaseEntity"/>
+        <ownedAttribute xmi:id="attr_MS_ArticuloVarianteId" name="ArticuloVarianteId" visibility="public" type="id_Integer"/>
+        <ownedAttribute xmi:id="attr_MS_IngresoId" name="IngresoId" visibility="public" type="id_Integer"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+        <ownedAttribute xmi:id="attr_MS_VentaId" name="VentaId" visibility="public" type="id_Integer"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedAttribute>
+        <ownedAttribute xmi:id="attr_MS_TipoMovimiento" name="TipoMovimiento" visibility="public" type="id_String"/>
+        <ownedAttribute xmi:id="attr_MS_Cantidad" name="Cantidad" visibility="public" type="id_Integer"/>
+      </packagedElement>
+
+      <!-- Asociaciones -->
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Rol_Usuario">
+        <memberEnd xmi:idref="end_Rol_usuarios"/><memberEnd xmi:idref="end_Usuario_rol"/>
+        <ownedEnd xmi:id="end_Rol_usuarios" name="usuarios" type="id_Usuario" association="assoc_Rol_Usuario"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_Usuario_rol" name="rol" type="id_Rol" association="assoc_Rol_Usuario"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Categoria_Articulo">
+        <memberEnd xmi:idref="end_Categoria_articulos"/><memberEnd xmi:idref="end_Articulo_categoria"/>
+        <ownedEnd xmi:id="end_Categoria_articulos" name="articulos" type="id_Articulo" association="assoc_Categoria_Articulo"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_Articulo_categoria" name="categoria" type="id_Categoria" association="assoc_Categoria_Articulo"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Marca_Articulo">
+        <memberEnd xmi:idref="end_Marca_articulos"/><memberEnd xmi:idref="end_Articulo_marca"/>
+        <ownedEnd xmi:id="end_Marca_articulos" name="articulos" type="id_Articulo" association="assoc_Marca_Articulo"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_Articulo_marca" name="marca" type="id_Marca" association="assoc_Marca_Articulo"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Articulo_AV">
+        <memberEnd xmi:idref="end_Articulo_variantes"/><memberEnd xmi:idref="end_AV_articulo"/>
+        <ownedEnd xmi:id="end_Articulo_variantes" name="variantes" type="id_ArticuloVariante" association="assoc_Articulo_AV" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_AV_articulo" name="articulo" type="id_Articulo" association="assoc_Articulo_AV"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Proveedor_Ingreso">
+        <memberEnd xmi:idref="end_Proveedor_ingresos"/><memberEnd xmi:idref="end_Ingreso_proveedor"/>
+        <ownedEnd xmi:id="end_Proveedor_ingresos" name="ingresos" type="id_Ingreso" association="assoc_Proveedor_Ingreso"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_Ingreso_proveedor" name="proveedor" type="id_Proveedor" association="assoc_Proveedor_Ingreso"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Ingreso_ID">
+        <memberEnd xmi:idref="end_Ingreso_detalles"/><memberEnd xmi:idref="end_ID_ingreso"/>
+        <ownedEnd xmi:id="end_Ingreso_detalles" name="ingresoDetalles" type="id_IngresoDetalle" association="assoc_Ingreso_ID" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_ID_ingreso" name="ingreso" type="id_Ingreso" association="assoc_Ingreso_ID"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_ID_AV">
+        <memberEnd xmi:idref="end_ID_variante"/><memberEnd xmi:idref="end_AV_ingresoDetalles"/>
+        <ownedEnd xmi:id="end_ID_variante" name="variante" type="id_ArticuloVariante" association="assoc_ID_AV"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+        <ownedEnd xmi:id="end_AV_ingresoDetalles" name="ingresoDetalles" type="id_IngresoDetalle" association="assoc_ID_AV"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Cliente_Venta">
+        <memberEnd xmi:idref="end_Cliente_ventas"/><memberEnd xmi:idref="end_Venta_cliente"/>
+        <ownedEnd xmi:id="end_Cliente_ventas" name="ventas" type="id_Venta" association="assoc_Cliente_Venta"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_Venta_cliente" name="cliente" type="id_Cliente" association="assoc_Cliente_Venta"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Venta_VD">
+        <memberEnd xmi:idref="end_Venta_detalles"/><memberEnd xmi:idref="end_VD_venta"/>
+        <ownedEnd xmi:id="end_Venta_detalles" name="ventaDetalles" type="id_VentaDetalle" association="assoc_Venta_VD" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_VD_venta" name="venta" type="id_Venta" association="assoc_Venta_VD"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_VD_AV">
+        <memberEnd xmi:idref="end_VD_variante"/><memberEnd xmi:idref="end_AV_ventaDetalles"/>
+        <ownedEnd xmi:id="end_VD_variante" name="variante" type="id_ArticuloVariante" association="assoc_VD_AV"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+        <ownedEnd xmi:id="end_AV_ventaDetalles" name="ventaDetalles" type="id_VentaDetalle" association="assoc_VD_AV"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_AV_MS">
+        <memberEnd xmi:idref="end_AV_movimientos"/><memberEnd xmi:idref="end_MS_variante"/>
+        <ownedEnd xmi:id="end_AV_movimientos" name="movimientosStock" type="id_MovimientoStock" association="assoc_AV_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_MS_variante" name="variante" type="id_ArticuloVariante" association="assoc_AV_MS"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Ingreso_MS">
+        <memberEnd xmi:idref="end_Ingreso_movimientos"/><memberEnd xmi:idref="end_MS_ingreso"/>
+        <ownedEnd xmi:id="end_Ingreso_movimientos" name="movimientosStock" type="id_MovimientoStock" association="assoc_Ingreso_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_MS_ingreso" name="ingreso" type="id_Ingreso" association="assoc_Ingreso_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_Venta_MS">
+        <memberEnd xmi:idref="end_Venta_movimientos"/><memberEnd xmi:idref="end_MS_venta"/>
+        <ownedEnd xmi:id="end_Venta_movimientos" name="movimientosStock" type="id_MovimientoStock" association="assoc_Venta_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd>
+        <ownedEnd xmi:id="end_MS_venta" name="venta" type="id_Venta" association="assoc_Venta_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd>
+      </packagedElement>
+
+    </packagedElement>
+
+    <!-- ============================================================ -->
+    <!-- PAQUETE 1.5: DIAGRAMA DE CASOS DE USO POR ACTOR (CASOS_DE_USO.md, seccion 3) -->
+    <!-- ============================================================ -->
+    <packagedElement xmi:type="uml:Package" xmi:id="pkg_casosuso" name="Diagrama de Casos de Uso">
+
+      <packagedElement xmi:type="uml:Actor" xmi:id="actor_Administrador" name="Administrador"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="actor_Vendedor" name="Vendedor / Cajero"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="actor_Almacen" name="Encargado de Almacen"/>
+      <packagedElement xmi:type="uml:Actor" xmi:id="actor_Cloudinary" name="Cloudinary"/>
+
+      <!-- Casos de uso del Administrador -->
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_a1" name="Iniciar Sesion"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_a2" name="Gestionar Roles y Usuarios"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_a3" name="Gestionar Catalogo de Productos"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_a4" name="Gestionar Proveedores y Clientes"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_a5" name="Cargar Datos Iniciales"/>
+
+      <!-- Casos de uso del Vendedor / Cajero -->
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_v1" name="Iniciar Sesion"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_v2" name="Consultar Catalogo"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_v3" name="Registrar Venta"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_v4" name="Anular Venta"/>
+
+      <!-- Casos de uso del Encargado de Almacen -->
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_m1" name="Iniciar Sesion"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_m2" name="Registrar Ingreso de Mercancia"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_m3" name="Ajustar Stock"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="uc_m4" name="Consultar Movimientos de Stock"/>
+
+      <!-- Asociaciones Actor-CasoDeUso: Administrador -->
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_adm_a1"><memberEnd xmi:idref="end_adm_a1_act"/><memberEnd xmi:idref="end_adm_a1_uc"/><ownedEnd xmi:id="end_adm_a1_act" type="actor_Administrador" association="assoc_adm_a1"/><ownedEnd xmi:id="end_adm_a1_uc" type="uc_a1" association="assoc_adm_a1"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_adm_a2"><memberEnd xmi:idref="end_adm_a2_act"/><memberEnd xmi:idref="end_adm_a2_uc"/><ownedEnd xmi:id="end_adm_a2_act" type="actor_Administrador" association="assoc_adm_a2"/><ownedEnd xmi:id="end_adm_a2_uc" type="uc_a2" association="assoc_adm_a2"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_adm_a3"><memberEnd xmi:idref="end_adm_a3_act"/><memberEnd xmi:idref="end_adm_a3_uc"/><ownedEnd xmi:id="end_adm_a3_act" type="actor_Administrador" association="assoc_adm_a3"/><ownedEnd xmi:id="end_adm_a3_uc" type="uc_a3" association="assoc_adm_a3"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_adm_a4"><memberEnd xmi:idref="end_adm_a4_act"/><memberEnd xmi:idref="end_adm_a4_uc"/><ownedEnd xmi:id="end_adm_a4_act" type="actor_Administrador" association="assoc_adm_a4"/><ownedEnd xmi:id="end_adm_a4_uc" type="uc_a4" association="assoc_adm_a4"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_adm_a5"><memberEnd xmi:idref="end_adm_a5_act"/><memberEnd xmi:idref="end_adm_a5_uc"/><ownedEnd xmi:id="end_adm_a5_act" type="actor_Administrador" association="assoc_adm_a5"/><ownedEnd xmi:id="end_adm_a5_uc" type="uc_a5" association="assoc_adm_a5"/></packagedElement>
+
+      <!-- Asociaciones Actor-CasoDeUso: Vendedor / Cajero -->
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_ven_v1"><memberEnd xmi:idref="end_ven_v1_act"/><memberEnd xmi:idref="end_ven_v1_uc"/><ownedEnd xmi:id="end_ven_v1_act" type="actor_Vendedor" association="assoc_ven_v1"/><ownedEnd xmi:id="end_ven_v1_uc" type="uc_v1" association="assoc_ven_v1"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_ven_v2"><memberEnd xmi:idref="end_ven_v2_act"/><memberEnd xmi:idref="end_ven_v2_uc"/><ownedEnd xmi:id="end_ven_v2_act" type="actor_Vendedor" association="assoc_ven_v2"/><ownedEnd xmi:id="end_ven_v2_uc" type="uc_v2" association="assoc_ven_v2"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_ven_v3"><memberEnd xmi:idref="end_ven_v3_act"/><memberEnd xmi:idref="end_ven_v3_uc"/><ownedEnd xmi:id="end_ven_v3_act" type="actor_Vendedor" association="assoc_ven_v3"/><ownedEnd xmi:id="end_ven_v3_uc" type="uc_v3" association="assoc_ven_v3"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_ven_v4"><memberEnd xmi:idref="end_ven_v4_act"/><memberEnd xmi:idref="end_ven_v4_uc"/><ownedEnd xmi:id="end_ven_v4_act" type="actor_Vendedor" association="assoc_ven_v4"/><ownedEnd xmi:id="end_ven_v4_uc" type="uc_v4" association="assoc_ven_v4"/></packagedElement>
+
+      <!-- Asociaciones Actor-CasoDeUso: Encargado de Almacen -->
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_alm_m1"><memberEnd xmi:idref="end_alm_m1_act"/><memberEnd xmi:idref="end_alm_m1_uc"/><ownedEnd xmi:id="end_alm_m1_act" type="actor_Almacen" association="assoc_alm_m1"/><ownedEnd xmi:id="end_alm_m1_uc" type="uc_m1" association="assoc_alm_m1"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_alm_m2"><memberEnd xmi:idref="end_alm_m2_act"/><memberEnd xmi:idref="end_alm_m2_uc"/><ownedEnd xmi:id="end_alm_m2_act" type="actor_Almacen" association="assoc_alm_m2"/><ownedEnd xmi:id="end_alm_m2_uc" type="uc_m2" association="assoc_alm_m2"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_alm_m3"><memberEnd xmi:idref="end_alm_m3_act"/><memberEnd xmi:idref="end_alm_m3_uc"/><ownedEnd xmi:id="end_alm_m3_act" type="actor_Almacen" association="assoc_alm_m3"/><ownedEnd xmi:id="end_alm_m3_uc" type="uc_m3" association="assoc_alm_m3"/></packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="assoc_alm_m4"><memberEnd xmi:idref="end_alm_m4_act"/><memberEnd xmi:idref="end_alm_m4_uc"/><ownedEnd xmi:id="end_alm_m4_act" type="actor_Almacen" association="assoc_alm_m4"/><ownedEnd xmi:id="end_alm_m4_uc" type="uc_m4" association="assoc_alm_m4"/></packagedElement>
+
+      <!-- "Gestionar Catalogo de Productos" depende del sistema externo Cloudinary para las imagenes -->
+      <packagedElement xmi:type="uml:Dependency" xmi:id="dep_a3_cloudinary" name="imagenes" client="uc_a3" supplier="actor_Cloudinary"/>
+
+    </packagedElement>
+
+    <!-- ============================================================ -->
+    <!-- PAQUETE 2: DIAGRAMAS DE SECUENCIA (seccion 1.1 a 1.4) -->
+    <!-- ============================================================ -->
+    <packagedElement xmi:type="uml:Package" xmi:id="pkg_secuencias" name="Diagramas de Secuencia">
+
+      <!-- 1.1 CU-01: Iniciar Sesion -->
+      <packagedElement xmi:type="uml:Interaction" xmi:id="int_Login" name="CU-01 Iniciar Sesion">
+        <lifeline xmi:id="ll_Login_Usuario" name="Usuario"/>
+        <lifeline xmi:id="ll_Login_API" name="AuthController"/>
+        <lifeline xmi:id="ll_Login_Servicio" name="AuthServicio"/>
+        <lifeline xmi:id="ll_Login_Repo" name="UsuarioRepository"/>
+        <lifeline xmi:id="ll_Login_BD" name="Base de Datos"/>
+
+        <message xmi:id="msg_L1" name="POST /api/Auth/login(email, password)" messageSort="synchCall" sendEvent="s_L1" receiveEvent="r_L1"/>
+        <message xmi:id="msg_L2" name="LoginAsync(credenciales)" messageSort="synchCall" sendEvent="s_L2" receiveEvent="r_L2"/>
+        <message xmi:id="msg_L3" name="Buscar usuario por email (con su Rol)" messageSort="synchCall" sendEvent="s_L3" receiveEvent="r_L3"/>
+        <message xmi:id="msg_L4" name="Consultar Usuario" messageSort="synchCall" sendEvent="s_L4" receiveEvent="r_L4"/>
+        <message xmi:id="msg_L5" name="Usuario encontrado" messageSort="reply" sendEvent="s_L5" receiveEvent="r_L5"/>
+        <message xmi:id="msg_L6" name="Usuario" messageSort="reply" sendEvent="s_L6" receiveEvent="r_L6"/>
+        <message xmi:id="msg_L7" name="Verificar contrasena" messageSort="synchCall" sendEvent="s_L7" receiveEvent="r_L7"/>
+        <message xmi:id="msg_L8" name="Generar token de sesion" messageSort="synchCall" sendEvent="s_L8" receiveEvent="r_L8"/>
+        <message xmi:id="msg_L9" name="Actualizar ultimo acceso" messageSort="synchCall" sendEvent="s_L9" receiveEvent="r_L9"/>
+        <message xmi:id="msg_L10" name="Token + datos del usuario" messageSort="reply" sendEvent="s_L10" receiveEvent="r_L10"/>
+        <message xmi:id="msg_L11" name="200 OK" messageSort="reply" sendEvent="s_L11" receiveEvent="r_L11"/>
+        <message xmi:id="msg_L12" name="Error de validacion" messageSort="reply" sendEvent="s_L12" receiveEvent="r_L12"/>
+        <message xmi:id="msg_L13" name="400 Credenciales invalidas" messageSort="reply" sendEvent="s_L13" receiveEvent="r_L13"/>
+
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L1" covered="ll_Login_Usuario" message="msg_L1"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L1" covered="ll_Login_API" message="msg_L1"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L2" covered="ll_Login_API" message="msg_L2"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L2" covered="ll_Login_Servicio" message="msg_L2"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L3" covered="ll_Login_Servicio" message="msg_L3"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L3" covered="ll_Login_Repo" message="msg_L3"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L4" covered="ll_Login_Repo" message="msg_L4"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L4" covered="ll_Login_BD" message="msg_L4"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L5" covered="ll_Login_BD" message="msg_L5"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L5" covered="ll_Login_Repo" message="msg_L5"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L6" covered="ll_Login_Repo" message="msg_L6"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L6" covered="ll_Login_Servicio" message="msg_L6"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L7" covered="ll_Login_Servicio" message="msg_L7"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L7" covered="ll_Login_Servicio" message="msg_L7"/>
+
+        <fragment xmi:type="uml:CombinedFragment" xmi:id="cf_Login_alt" interactionOperator="alt" covered="ll_Login_Servicio ll_Login_Repo ll_Login_API ll_Login_Usuario">
+          <operand xmi:type="uml:InteractionOperand" xmi:id="op_Login_1">
+            <guard xmi:type="uml:InteractionConstraint" xmi:id="guard_Login_1"><specification xmi:type="uml:OpaqueExpression" xmi:id="spec_Login_1" body="Credenciales validas"/></guard>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L8" covered="ll_Login_Servicio" message="msg_L8"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L8" covered="ll_Login_Servicio" message="msg_L8"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L9" covered="ll_Login_Servicio" message="msg_L9"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L9" covered="ll_Login_Repo" message="msg_L9"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L10" covered="ll_Login_Servicio" message="msg_L10"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L10" covered="ll_Login_API" message="msg_L10"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L11" covered="ll_Login_API" message="msg_L11"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L11" covered="ll_Login_Usuario" message="msg_L11"/>
+          </operand>
+          <operand xmi:type="uml:InteractionOperand" xmi:id="op_Login_2">
+            <guard xmi:type="uml:InteractionConstraint" xmi:id="guard_Login_2"><specification xmi:type="uml:OpaqueExpression" xmi:id="spec_Login_2" body="Credenciales invalidas"/></guard>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L12" covered="ll_Login_Servicio" message="msg_L12"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L12" covered="ll_Login_API" message="msg_L12"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_L13" covered="ll_Login_API" message="msg_L13"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_L13" covered="ll_Login_Usuario" message="msg_L13"/>
+          </operand>
+        </fragment>
+      </packagedElement>
+
+      <!-- 1.2 CU-12: Registrar Venta -->
+      <packagedElement xmi:type="uml:Interaction" xmi:id="int_Venta" name="CU-12 Registrar Venta">
+        <lifeline xmi:id="ll_Venta_Vendedor" name="Vendedor"/>
+        <lifeline xmi:id="ll_Venta_API" name="VentasController"/>
+        <lifeline xmi:id="ll_Venta_Servicio" name="VentaServicio"/>
+        <lifeline xmi:id="ll_Venta_RepoVariante" name="ArticuloVarianteRepository"/>
+        <lifeline xmi:id="ll_Venta_RepoVenta" name="VentaRepository"/>
+        <lifeline xmi:id="ll_Venta_BD" name="Base de Datos"/>
+
+        <message xmi:id="msg_V1" name="POST /api/Ventas (cliente, detalle)" messageSort="synchCall" sendEvent="s_V1" receiveEvent="r_V1"/>
+        <message xmi:id="msg_V2" name="CreateAsync(venta)" messageSort="synchCall" sendEvent="s_V2" receiveEvent="r_V2"/>
+        <message xmi:id="msg_V3" name="Obtener variante (precio y stock)" messageSort="synchCall" sendEvent="s_V3" receiveEvent="r_V3"/>
+        <message xmi:id="msg_V4" name="Consultar Variante" messageSort="synchCall" sendEvent="s_V4" receiveEvent="r_V4"/>
+        <message xmi:id="msg_V5" name="Variante" messageSort="reply" sendEvent="s_V5" receiveEvent="r_V5"/>
+        <message xmi:id="msg_V6" name="Variante" messageSort="reply" sendEvent="s_V6" receiveEvent="r_V6"/>
+        <message xmi:id="msg_V7" name="Validar stock y calcular subtotal" messageSort="synchCall" sendEvent="s_V7" receiveEvent="r_V7"/>
+        <message xmi:id="msg_V8" name="Calcular totales de la venta" messageSort="synchCall" sendEvent="s_V8" receiveEvent="r_V8"/>
+        <message xmi:id="msg_V9" name="Registrar venta con su detalle" messageSort="synchCall" sendEvent="s_V9" receiveEvent="r_V9"/>
+        <message xmi:id="msg_V10" name="Descontar stock y registrar movimiento de salida" messageSort="synchCall" sendEvent="s_V10" receiveEvent="r_V10"/>
+        <message xmi:id="msg_V11" name="Confirmacion" messageSort="reply" sendEvent="s_V11" receiveEvent="r_V11"/>
+        <message xmi:id="msg_V12" name="Venta registrada" messageSort="reply" sendEvent="s_V12" receiveEvent="r_V12"/>
+        <message xmi:id="msg_V13" name="Datos de la venta" messageSort="reply" sendEvent="s_V13" receiveEvent="r_V13"/>
+        <message xmi:id="msg_V14" name="201 Venta registrada" messageSort="reply" sendEvent="s_V14" receiveEvent="r_V14"/>
+
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V1" covered="ll_Venta_Vendedor" message="msg_V1"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V1" covered="ll_Venta_API" message="msg_V1"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V2" covered="ll_Venta_API" message="msg_V2"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V2" covered="ll_Venta_Servicio" message="msg_V2"/>
+
+        <fragment xmi:type="uml:CombinedFragment" xmi:id="cf_Venta_loop" interactionOperator="loop" covered="ll_Venta_Servicio ll_Venta_RepoVariante ll_Venta_BD">
+          <operand xmi:type="uml:InteractionOperand" xmi:id="op_Venta_1">
+            <guard xmi:type="uml:InteractionConstraint" xmi:id="guard_Venta_1"><specification xmi:type="uml:OpaqueExpression" xmi:id="spec_Venta_1" body="Por cada producto del detalle"/></guard>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V3" covered="ll_Venta_Servicio" message="msg_V3"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V3" covered="ll_Venta_RepoVariante" message="msg_V3"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V4" covered="ll_Venta_RepoVariante" message="msg_V4"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V4" covered="ll_Venta_BD" message="msg_V4"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V5" covered="ll_Venta_BD" message="msg_V5"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V5" covered="ll_Venta_RepoVariante" message="msg_V5"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V6" covered="ll_Venta_RepoVariante" message="msg_V6"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V6" covered="ll_Venta_Servicio" message="msg_V6"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V7" covered="ll_Venta_Servicio" message="msg_V7"/>
+            <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V7" covered="ll_Venta_Servicio" message="msg_V7"/>
+          </operand>
+        </fragment>
+
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V8" covered="ll_Venta_Servicio" message="msg_V8"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V8" covered="ll_Venta_Servicio" message="msg_V8"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V9" covered="ll_Venta_Servicio" message="msg_V9"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V9" covered="ll_Venta_RepoVenta" message="msg_V9"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V10" covered="ll_Venta_RepoVenta" message="msg_V10"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V10" covered="ll_Venta_BD" message="msg_V10"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V11" covered="ll_Venta_BD" message="msg_V11"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V11" covered="ll_Venta_RepoVenta" message="msg_V11"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V12" covered="ll_Venta_RepoVenta" message="msg_V12"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V12" covered="ll_Venta_Servicio" message="msg_V12"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V13" covered="ll_Venta_Servicio" message="msg_V13"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V13" covered="ll_Venta_API" message="msg_V13"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_V14" covered="ll_Venta_API" message="msg_V14"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_V14" covered="ll_Venta_Vendedor" message="msg_V14"/>
+      </packagedElement>
+
+      <!-- 1.3 CU-11: Registrar Ingreso de Mercancia -->
+      <packagedElement xmi:type="uml:Interaction" xmi:id="int_Ingreso" name="CU-11 Registrar Ingreso de Mercancia">
+        <lifeline xmi:id="ll_Ing_Almacen" name="Encargado de Almacen"/>
+        <lifeline xmi:id="ll_Ing_API" name="IngresosController"/>
+        <lifeline xmi:id="ll_Ing_Servicio" name="IngresoServicio"/>
+        <lifeline xmi:id="ll_Ing_Repo" name="IngresoRepository"/>
+        <lifeline xmi:id="ll_Ing_BD" name="Base de Datos"/>
+
+        <message xmi:id="msg_I1" name="POST /api/Ingresos (proveedor, detalle)" messageSort="synchCall" sendEvent="s_I1" receiveEvent="r_I1"/>
+        <message xmi:id="msg_I2" name="CreateAsync(ingreso)" messageSort="synchCall" sendEvent="s_I2" receiveEvent="r_I2"/>
+        <message xmi:id="msg_I3" name="Validar proveedor y variantes" messageSort="synchCall" sendEvent="s_I3" receiveEvent="r_I3"/>
+        <message xmi:id="msg_I4" name="Calcular subtotales y total" messageSort="synchCall" sendEvent="s_I4" receiveEvent="r_I4"/>
+        <message xmi:id="msg_I5" name="Registrar ingreso con su detalle" messageSort="synchCall" sendEvent="s_I5" receiveEvent="r_I5"/>
+        <message xmi:id="msg_I6" name="Incrementar stock, actualizar costo y registrar movimiento" messageSort="synchCall" sendEvent="s_I6" receiveEvent="r_I6"/>
+        <message xmi:id="msg_I7" name="Confirmacion" messageSort="reply" sendEvent="s_I7" receiveEvent="r_I7"/>
+        <message xmi:id="msg_I8" name="Ingreso registrado" messageSort="reply" sendEvent="s_I8" receiveEvent="r_I8"/>
+        <message xmi:id="msg_I9" name="Datos del ingreso" messageSort="reply" sendEvent="s_I9" receiveEvent="r_I9"/>
+        <message xmi:id="msg_I10" name="201 Ingreso registrado" messageSort="reply" sendEvent="s_I10" receiveEvent="r_I10"/>
+
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I1" covered="ll_Ing_Almacen" message="msg_I1"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I1" covered="ll_Ing_API" message="msg_I1"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I2" covered="ll_Ing_API" message="msg_I2"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I2" covered="ll_Ing_Servicio" message="msg_I2"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I3" covered="ll_Ing_Servicio" message="msg_I3"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I3" covered="ll_Ing_Servicio" message="msg_I3"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I4" covered="ll_Ing_Servicio" message="msg_I4"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I4" covered="ll_Ing_Servicio" message="msg_I4"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I5" covered="ll_Ing_Servicio" message="msg_I5"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I5" covered="ll_Ing_Repo" message="msg_I5"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I6" covered="ll_Ing_Repo" message="msg_I6"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I6" covered="ll_Ing_BD" message="msg_I6"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I7" covered="ll_Ing_BD" message="msg_I7"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I7" covered="ll_Ing_Repo" message="msg_I7"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I8" covered="ll_Ing_Repo" message="msg_I8"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I8" covered="ll_Ing_Servicio" message="msg_I8"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I9" covered="ll_Ing_Servicio" message="msg_I9"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I9" covered="ll_Ing_API" message="msg_I9"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_I10" covered="ll_Ing_API" message="msg_I10"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_I10" covered="ll_Ing_Almacen" message="msg_I10"/>
+      </packagedElement>
+
+      <!-- 1.4 CU-08: Subir Imagen a la Nube -->
+      <packagedElement xmi:type="uml:Interaction" xmi:id="int_Imagen" name="CU-08 Subir Imagen a la Nube">
+        <lifeline xmi:id="ll_Img_Admin" name="Administrador"/>
+        <lifeline xmi:id="ll_Img_API" name="ImagenesController"/>
+        <lifeline xmi:id="ll_Img_Servicio" name="IImagenService"/>
+        <lifeline xmi:id="ll_Img_Cloud" name="Cloudinary"/>
+
+        <message xmi:id="msg_Im1" name="POST /api/Imagenes (archivo)" messageSort="synchCall" sendEvent="s_Im1" receiveEvent="r_Im1"/>
+        <message xmi:id="msg_Im2" name="Validar tipo y tamano del archivo" messageSort="synchCall" sendEvent="s_Im2" receiveEvent="r_Im2"/>
+        <message xmi:id="msg_Im3" name="Subir archivo" messageSort="synchCall" sendEvent="s_Im3" receiveEvent="r_Im3"/>
+        <message xmi:id="msg_Im4" name="Enviar imagen" messageSort="synchCall" sendEvent="s_Im4" receiveEvent="r_Im4"/>
+        <message xmi:id="msg_Im5" name="URL publica de la imagen" messageSort="reply" sendEvent="s_Im5" receiveEvent="r_Im5"/>
+        <message xmi:id="msg_Im6" name="URL" messageSort="reply" sendEvent="s_Im6" receiveEvent="r_Im6"/>
+        <message xmi:id="msg_Im7" name="200 OK { url }" messageSort="reply" sendEvent="s_Im7" receiveEvent="r_Im7"/>
+
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_Im1" covered="ll_Img_Admin" message="msg_Im1"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_Im1" covered="ll_Img_API" message="msg_Im1"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_Im2" covered="ll_Img_API" message="msg_Im2"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_Im2" covered="ll_Img_API" message="msg_Im2"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_Im3" covered="ll_Img_API" message="msg_Im3"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_Im3" covered="ll_Img_Servicio" message="msg_Im3"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_Im4" covered="ll_Img_Servicio" message="msg_Im4"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_Im4" covered="ll_Img_Cloud" message="msg_Im4"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_Im5" covered="ll_Img_Cloud" message="msg_Im5"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_Im5" covered="ll_Img_Servicio" message="msg_Im5"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_Im6" covered="ll_Img_Servicio" message="msg_Im6"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_Im6" covered="ll_Img_API" message="msg_Im6"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="s_Im7" covered="ll_Img_API" message="msg_Im7"/>
+        <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="r_Im7" covered="ll_Img_Admin" message="msg_Im7"/>
+      </packagedElement>
+
+    </packagedElement>
+
+    <!-- ============================================================ -->
+    <!-- PAQUETE 3: DIAGRAMA DE ACTIVIDADES (seccion 2.1) -->
+    <!-- ============================================================ -->
+    <packagedElement xmi:type="uml:Package" xmi:id="pkg_actividades" name="Diagrama de Actividades">
+      <packagedElement xmi:type="uml:Activity" xmi:id="act_Venta" name="Proceso de Venta">
+        <node xmi:type="uml:InitialNode" xmi:id="n_Inicio" name="Inicio"/>
+        <node xmi:type="uml:OpaqueAction" xmi:id="n_Buscar" name="Buscar producto por codigo de barras o catalogo"/>
+        <node xmi:type="uml:OpaqueAction" xmi:id="n_Agregar" name="Agregar producto y cantidad al detalle de venta"/>
+        <node xmi:type="uml:DecisionNode" xmi:id="n_DecOtro" name="Agregar otro producto?"/>
+        <node xmi:type="uml:OpaqueAction" xmi:id="n_Confirmar" name="Confirmar venta"/>
+        <node xmi:type="uml:DecisionNode" xmi:id="n_DecStock" name="Stock suficiente en todas las lineas?"/>
+        <node xmi:type="uml:OpaqueAction" xmi:id="n_Rechazar" name="Rechazar venta e informar producto sin stock"/>
+        <node xmi:type="uml:ActivityFinalNode" xmi:id="n_Fin1" name="Fin"/>
+        <node xmi:type="uml:OpaqueAction" xmi:id="n_Calcular" name="Calcular precios, subtotales y total"/>
+        <node xmi:type="uml:OpaqueAction" xmi:id="n_Descontar" name="Descontar stock y registrar movimiento de salida"/>
+        <node xmi:type="uml:OpaqueAction" xmi:id="n_Registrar" name="Registrar venta como pagada"/>
+        <node xmi:type="uml:ActivityFinalNode" xmi:id="n_Fin2" name="Fin"/>
+
+        <edge xmi:type="uml:ControlFlow" xmi:id="e1" source="n_Inicio" target="n_Buscar"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e2" source="n_Buscar" target="n_Agregar"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e3" source="n_Agregar" target="n_DecOtro"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e4" name="Si" source="n_DecOtro" target="n_Buscar"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e5" name="No" source="n_DecOtro" target="n_Confirmar"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e6" source="n_Confirmar" target="n_DecStock"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e7" name="No" source="n_DecStock" target="n_Rechazar"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e8" source="n_Rechazar" target="n_Fin1"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e9" name="Si" source="n_DecStock" target="n_Calcular"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e10" source="n_Calcular" target="n_Descontar"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e11" source="n_Descontar" target="n_Registrar"/>
+        <edge xmi:type="uml:ControlFlow" xmi:id="e12" source="n_Registrar" target="n_Fin2"/>
+      </packagedElement>
+    </packagedElement>
+
+  </uml:Model>
+</xmi:XMI>
