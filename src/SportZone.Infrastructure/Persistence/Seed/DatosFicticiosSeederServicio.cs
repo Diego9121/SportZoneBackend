@@ -2,12 +2,13 @@ using SportZone.Application.Interfaces.Servicios;
 
 namespace SportZone.Infrastructure.Persistence.Seed;
 
-// Genera Proveedores, Clientes, Ingresos y Ventas ficticios desde el 20 de mayo hasta la fecha actual,
+// Genera Proveedores, Clientes, Ingresos y Ventas ficticios desde hace 45 dias hasta hoy,
 // para que el catalogo (cargado en Stock 0 por DataSeederServicio) tenga movimiento real que mostrar
 // en Reportes/Dashboard. Usa semilla fija para que los datos sean reproducibles tras cada reset de BD.
 public class DatosFicticiosSeederServicio : IDatosFicticiosSeederServicio
 {
-    private static readonly DateTime FechaInicio = new(2026, 5, 20);
+    // FechaInicio relativa: siempre genera los ultimos 45 dias independientemente de cuando se ejecute.
+    private static readonly DateTime FechaInicio = DateTime.UtcNow.Date.AddDays(-45);
 
     // Categoria.Id -> peso relativo de aparicion en las ventas (proporcional al tamano real del catalogo)
     private static readonly Dictionary<int, int> PesoCategoria = new() { [3] = 60, [1] = 20, [2] = 12, [7] = 8 };
@@ -23,8 +24,21 @@ public class DatosFicticiosSeederServicio : IDatosFicticiosSeederServicio
 
     public async Task SeedAsync()
     {
-        if (await _context.Ventas.AnyAsync() || await _context.Ingresos.AnyAsync())
-            return;
+        if (await _context.Ventas.AnyAsync()) return;
+
+        // Estado roto: el seeder previo creo ingresos de stock inicial pero no ventas
+        // (ocurre cuando FechaInicio estaba en el futuro respecto al reloj del sistema al momento del seed).
+        // Limpiar todo para re-sembrar correctamente con la nueva FechaInicio dinamica.
+        if (await _context.Ingresos.AnyAsync())
+        {
+            // Restriccion FK: MovimientosStock referencia Ingresos con NO ACTION; borrar primero.
+            await _context.MovimientosStock.Where(m => m.IngresoId != null).ExecuteDeleteAsync();
+            // Cascade en BD: borrar Ingresos elimina IngresoDetalles automaticamente.
+            await _context.Ingresos.ExecuteDeleteAsync();
+            await _context.Clientes.ExecuteDeleteAsync();
+            await _context.Proveedores.ExecuteDeleteAsync();
+            await _context.ArticuloVariantes.ExecuteUpdateAsync(v => v.SetProperty(x => x.Stock, 0));
+        }
 
         var variantes = await _context.ArticuloVariantes.Include(v => v.Articulo).ToListAsync();
         if (variantes.Count == 0)

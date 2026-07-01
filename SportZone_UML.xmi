@@ -213,6 +213,274 @@
     </packagedElement>
 
     <!-- ============================================================ -->
+    <!-- PAQUETE 1.4: MODELO DE BASE DE DATOS / ENTIDAD-RELACION (DIAGRAMAS_UML.md, seccion 3.2) -->
+    <!-- Tablas planas (sin herencia de BaseEntity): cada una con sus propias columnas de auditoria,
+         igual que el esquema fisico real en SQL Server. Los tipos son cadenas SQL literales (no C#),
+         para que en Enterprise Architect la columna "Type" de cada atributo muestre el tipo real. -->
+    <!-- ============================================================ -->
+    <packagedElement xmi:type="uml:Package" xmi:id="pkg_tipos_sql" name="Tipos SQL">
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_int" name="int"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_bit" name="bit"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_datetime2" name="datetime2"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_decimal_10_2" name="decimal(10,2)"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_nvarchar_10" name="nvarchar(10)"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_nvarchar_20" name="nvarchar(20)"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_nvarchar_50" name="nvarchar(50)"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_nvarchar_100" name="nvarchar(100)"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_nvarchar_150" name="nvarchar(150)"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_nvarchar_255" name="nvarchar(255)"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_nvarchar_500" name="nvarchar(500)"/>
+      <packagedElement xmi:type="uml:PrimitiveType" xmi:id="sql_nvarchar_max" name="nvarchar(max)"/>
+    </packagedElement>
+
+    <packagedElement xmi:type="uml:Package" xmi:id="pkg_basedatos" name="Modelo de Base de Datos (Entidad-Relacion)">
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_Roles" name="Roles">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id"/>
+        <ownedAttribute xmi:id="db_Roles_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Roles_Nombre" name="Nombre" visibility="public" type="sql_nvarchar_50"/>
+        <ownedAttribute xmi:id="db_Roles_Descripcion" name="Descripcion" visibility="public" type="sql_nvarchar_255"/>
+        <ownedAttribute xmi:id="db_Roles_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Roles_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Roles_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Roles_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Roles_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Roles_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_Usuarios" name="Usuarios">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id | FK: RolId -&gt; Roles.Id | UK: Email"/>
+        <ownedAttribute xmi:id="db_Usuarios_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Usuarios_RolId" name="RolId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Usuarios_Nombre" name="Nombre" visibility="public" type="sql_nvarchar_150"/>
+        <ownedAttribute xmi:id="db_Usuarios_Email" name="Email" visibility="public" type="sql_nvarchar_100"/>
+        <ownedAttribute xmi:id="db_Usuarios_PasswordHash" name="PasswordHash" visibility="public" type="sql_nvarchar_255"/>
+        <ownedAttribute xmi:id="db_Usuarios_TokenRefresh" name="TokenRefresh" visibility="public" type="sql_nvarchar_500"/>
+        <ownedAttribute xmi:id="db_Usuarios_Activo" name="Activo" visibility="public" type="sql_bit"/>
+        <ownedAttribute xmi:id="db_Usuarios_UltimoAcceso" name="UltimoAcceso" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Usuarios_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Usuarios_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Usuarios_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Usuarios_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Usuarios_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Usuarios_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_Marcas" name="Marcas">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id"/>
+        <ownedAttribute xmi:id="db_Marcas_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Marcas_Nombre" name="Nombre" visibility="public" type="sql_nvarchar_100"/>
+        <ownedAttribute xmi:id="db_Marcas_Descripcion" name="Descripcion" visibility="public" type="sql_nvarchar_255"/>
+        <ownedAttribute xmi:id="db_Marcas_Logo" name="Logo" visibility="public" type="sql_nvarchar_500"/>
+        <ownedAttribute xmi:id="db_Marcas_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Marcas_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Marcas_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Marcas_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Marcas_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Marcas_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_Categorias" name="Categorias">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id"/>
+        <ownedAttribute xmi:id="db_Categorias_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Categorias_Nombre" name="Nombre" visibility="public" type="sql_nvarchar_100"/>
+        <ownedAttribute xmi:id="db_Categorias_Descripcion" name="Descripcion" visibility="public" type="sql_nvarchar_255"/>
+        <ownedAttribute xmi:id="db_Categorias_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Categorias_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Categorias_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Categorias_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Categorias_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Categorias_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_Articulos" name="Articulos">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id | FK: CategoriaId -&gt; Categorias.Id, MarcaId -&gt; Marcas.Id | UK: Codigo"/>
+        <ownedAttribute xmi:id="db_Articulos_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Articulos_CategoriaId" name="CategoriaId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Articulos_MarcaId" name="MarcaId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Articulos_Codigo" name="Codigo" visibility="public" type="sql_nvarchar_50"/>
+        <ownedAttribute xmi:id="db_Articulos_Nombre" name="Nombre" visibility="public" type="sql_nvarchar_150"/>
+        <ownedAttribute xmi:id="db_Articulos_Descripcion" name="Descripcion" visibility="public" type="sql_nvarchar_max"/>
+        <ownedAttribute xmi:id="db_Articulos_Imagen" name="Imagen" visibility="public" type="sql_nvarchar_500"/>
+        <ownedAttribute xmi:id="db_Articulos_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Articulos_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Articulos_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Articulos_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Articulos_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Articulos_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_ArticuloVariantes" name="ArticuloVariantes">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id | FK: ArticuloId -&gt; Articulos.Id | UK: CodigoBarras, y (ArticuloId+TallaUs+Color) compuesta"/>
+        <ownedAttribute xmi:id="db_AV_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_AV_ArticuloId" name="ArticuloId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_AV_TallaUs" name="TallaUs" visibility="public" type="sql_nvarchar_10"/>
+        <ownedAttribute xmi:id="db_AV_TallaEu" name="TallaEu" visibility="public" type="sql_nvarchar_10"/>
+        <ownedAttribute xmi:id="db_AV_TallaUk" name="TallaUk" visibility="public" type="sql_nvarchar_10"/>
+        <ownedAttribute xmi:id="db_AV_TallaCm" name="TallaCm" visibility="public" type="sql_nvarchar_10"/>
+        <ownedAttribute xmi:id="db_AV_Color" name="Color" visibility="public" type="sql_nvarchar_50"/>
+        <ownedAttribute xmi:id="db_AV_CodigoBarras" name="CodigoBarras" visibility="public" type="sql_nvarchar_100"/>
+        <ownedAttribute xmi:id="db_AV_ImagenUrl" name="ImagenUrl" visibility="public" type="sql_nvarchar_500"/>
+        <ownedAttribute xmi:id="db_AV_Stock" name="Stock" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_AV_StockMinimo" name="StockMinimo" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_AV_PrecioVenta" name="PrecioVenta" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_AV_PrecioCosto" name="PrecioCosto" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_AV_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_AV_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_AV_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_AV_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_AV_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_AV_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_Proveedores" name="Proveedores">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id"/>
+        <ownedAttribute xmi:id="db_Proveedores_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Proveedores_Nombre" name="Nombre" visibility="public" type="sql_nvarchar_150"/>
+        <ownedAttribute xmi:id="db_Proveedores_Contacto" name="Contacto" visibility="public" type="sql_nvarchar_100"/>
+        <ownedAttribute xmi:id="db_Proveedores_Telefono" name="Telefono" visibility="public" type="sql_nvarchar_20"/>
+        <ownedAttribute xmi:id="db_Proveedores_Email" name="Email" visibility="public" type="sql_nvarchar_100"/>
+        <ownedAttribute xmi:id="db_Proveedores_Direccion" name="Direccion" visibility="public" type="sql_nvarchar_255"/>
+        <ownedAttribute xmi:id="db_Proveedores_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Proveedores_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Proveedores_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Proveedores_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Proveedores_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Proveedores_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_Ingresos" name="Ingresos">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id | FK: ProveedorId -&gt; Proveedores.Id"/>
+        <ownedAttribute xmi:id="db_Ingresos_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Ingresos_ProveedorId" name="ProveedorId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Ingresos_NumeroDoc" name="NumeroDoc" visibility="public" type="sql_nvarchar_50"/>
+        <ownedAttribute xmi:id="db_Ingresos_Total" name="Total" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_Ingresos_Observacion" name="Observacion" visibility="public" type="sql_nvarchar_max"/>
+        <ownedAttribute xmi:id="db_Ingresos_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Ingresos_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Ingresos_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Ingresos_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Ingresos_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Ingresos_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_IngresoDetalles" name="IngresoDetalles">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id | FK: IngresoId -&gt; Ingresos.Id, VarianteId -&gt; ArticuloVariantes.Id"/>
+        <ownedAttribute xmi:id="db_ID_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_ID_IngresoId" name="IngresoId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_ID_VarianteId" name="VarianteId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_ID_Cantidad" name="Cantidad" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_ID_PrecioCosto" name="PrecioCosto" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_ID_Subtotal" name="Subtotal" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_ID_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_ID_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_ID_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_ID_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_ID_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_ID_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_Clientes" name="Clientes">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id | UK: Documento"/>
+        <ownedAttribute xmi:id="db_Clientes_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Clientes_TipoDocumento" name="TipoDocumento" visibility="public" type="sql_nvarchar_20"/>
+        <ownedAttribute xmi:id="db_Clientes_Documento" name="Documento" visibility="public" type="sql_nvarchar_20"/>
+        <ownedAttribute xmi:id="db_Clientes_Nombre" name="Nombre" visibility="public" type="sql_nvarchar_150"/>
+        <ownedAttribute xmi:id="db_Clientes_Telefono" name="Telefono" visibility="public" type="sql_nvarchar_20"/>
+        <ownedAttribute xmi:id="db_Clientes_Email" name="Email" visibility="public" type="sql_nvarchar_100"/>
+        <ownedAttribute xmi:id="db_Clientes_Direccion" name="Direccion" visibility="public" type="sql_nvarchar_255"/>
+        <ownedAttribute xmi:id="db_Clientes_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Clientes_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Clientes_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Clientes_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Clientes_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Clientes_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_Ventas" name="Ventas">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id | FK: ClienteId -&gt; Clientes.Id (opcional) | UK: NumeroDoc"/>
+        <ownedAttribute xmi:id="db_Ventas_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Ventas_ClienteId" name="ClienteId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Ventas_NumeroDoc" name="NumeroDoc" visibility="public" type="sql_nvarchar_50"/>
+        <ownedAttribute xmi:id="db_Ventas_TipoComprobante" name="TipoComprobante" visibility="public" type="sql_nvarchar_20"/>
+        <ownedAttribute xmi:id="db_Ventas_Subtotal" name="Subtotal" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_Ventas_Descuento" name="Descuento" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_Ventas_Total" name="Total" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_Ventas_Estado" name="Estado" visibility="public" type="sql_nvarchar_20"/>
+        <ownedAttribute xmi:id="db_Ventas_Observacion" name="Observacion" visibility="public" type="sql_nvarchar_max"/>
+        <ownedAttribute xmi:id="db_Ventas_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Ventas_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Ventas_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_Ventas_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Ventas_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_Ventas_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_VentaDetalles" name="VentaDetalles">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id | FK: VentaId -&gt; Ventas.Id, VarianteId -&gt; ArticuloVariantes.Id"/>
+        <ownedAttribute xmi:id="db_VD_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_VD_VentaId" name="VentaId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_VD_VarianteId" name="VarianteId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_VD_Cantidad" name="Cantidad" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_VD_PrecioUnitario" name="PrecioUnitario" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_VD_PrecioCosto" name="PrecioCosto" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_VD_Descuento" name="Descuento" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_VD_Subtotal" name="Subtotal" visibility="public" type="sql_decimal_10_2"/>
+        <ownedAttribute xmi:id="db_VD_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_VD_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_VD_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_VD_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_VD_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_VD_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <packagedElement xmi:type="uml:Class" xmi:id="db_MovimientosStock" name="MovimientosStock">
+        <ownedComment xmi:type="uml:Comment" body="PK: Id | FK: ArticuloVarianteId -&gt; ArticuloVariantes.Id, IngresoId -&gt; Ingresos.Id (opcional), VentaId -&gt; Ventas.Id (opcional)"/>
+        <ownedAttribute xmi:id="db_MS_Id" name="Id" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_MS_ArticuloVarianteId" name="ArticuloVarianteId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_MS_IngresoId" name="IngresoId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_MS_VentaId" name="VentaId" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_MS_TipoMovimiento" name="TipoMovimiento" visibility="public" type="sql_nvarchar_100"/>
+        <ownedAttribute xmi:id="db_MS_Cantidad" name="Cantidad" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_MS_NumeroDoc" name="NumeroDoc" visibility="public" type="sql_nvarchar_50"/>
+        <ownedAttribute xmi:id="db_MS_CreatedAt" name="CreatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_MS_UpdatedAt" name="UpdatedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_MS_DeletedAt" name="DeletedAt" visibility="public" type="sql_datetime2"/>
+        <ownedAttribute xmi:id="db_MS_CreateById" name="CreateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_MS_UpdateById" name="UpdateById" visibility="public" type="sql_int"/>
+        <ownedAttribute xmi:id="db_MS_DeleteById" name="DeleteById" visibility="public" type="sql_int"/>
+      </packagedElement>
+
+      <!-- Relaciones FK (mismas cardinalidades que DIAGRAMAS_UML.md seccion 3.2) -->
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Roles_Usuarios"><memberEnd xmi:idref="dbend_Roles_usuarios"/><memberEnd xmi:idref="dbend_Usuarios_rol"/><ownedEnd xmi:id="dbend_Roles_usuarios" name="usuarios" type="db_Usuarios" association="dbassoc_Roles_Usuarios"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_Usuarios_rol" name="rol" type="db_Roles" association="dbassoc_Roles_Usuarios"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Categorias_Articulos"><memberEnd xmi:idref="dbend_Categorias_articulos"/><memberEnd xmi:idref="dbend_Articulos_categoria"/><ownedEnd xmi:id="dbend_Categorias_articulos" name="articulos" type="db_Articulos" association="dbassoc_Categorias_Articulos"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_Articulos_categoria" name="categoria" type="db_Categorias" association="dbassoc_Categorias_Articulos"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Marcas_Articulos"><memberEnd xmi:idref="dbend_Marcas_articulos"/><memberEnd xmi:idref="dbend_Articulos_marca"/><ownedEnd xmi:id="dbend_Marcas_articulos" name="articulos" type="db_Articulos" association="dbassoc_Marcas_Articulos"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_Articulos_marca" name="marca" type="db_Marcas" association="dbassoc_Marcas_Articulos"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Articulos_AV"><memberEnd xmi:idref="dbend_Articulos_variantes"/><memberEnd xmi:idref="dbend_AV_articulo"/><ownedEnd xmi:id="dbend_Articulos_variantes" name="variantes" type="db_ArticuloVariantes" association="dbassoc_Articulos_AV" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_AV_articulo" name="articulo" type="db_Articulos" association="dbassoc_Articulos_AV"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Proveedores_Ingresos"><memberEnd xmi:idref="dbend_Proveedores_ingresos"/><memberEnd xmi:idref="dbend_Ingresos_proveedor"/><ownedEnd xmi:id="dbend_Proveedores_ingresos" name="ingresos" type="db_Ingresos" association="dbassoc_Proveedores_Ingresos"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_Ingresos_proveedor" name="proveedor" type="db_Proveedores" association="dbassoc_Proveedores_Ingresos"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Ingresos_ID"><memberEnd xmi:idref="dbend_Ingresos_detalles"/><memberEnd xmi:idref="dbend_ID_ingreso"/><ownedEnd xmi:id="dbend_Ingresos_detalles" name="ingresoDetalles" type="db_IngresoDetalles" association="dbassoc_Ingresos_ID" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_ID_ingreso" name="ingreso" type="db_Ingresos" association="dbassoc_Ingresos_ID"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_AV_ID"><memberEnd xmi:idref="dbend_AV_ingresoDetalles"/><memberEnd xmi:idref="dbend_ID_variante"/><ownedEnd xmi:id="dbend_AV_ingresoDetalles" name="ingresoDetalles" type="db_IngresoDetalles" association="dbassoc_AV_ID"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_ID_variante" name="variante" type="db_ArticuloVariantes" association="dbassoc_AV_ID"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Clientes_Ventas"><memberEnd xmi:idref="dbend_Clientes_ventas"/><memberEnd xmi:idref="dbend_Ventas_cliente"/><ownedEnd xmi:id="dbend_Clientes_ventas" name="ventas" type="db_Ventas" association="dbassoc_Clientes_Ventas"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_Ventas_cliente" name="cliente" type="db_Clientes" association="dbassoc_Clientes_Ventas"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Ventas_VD"><memberEnd xmi:idref="dbend_Ventas_detalles"/><memberEnd xmi:idref="dbend_VD_venta"/><ownedEnd xmi:id="dbend_Ventas_detalles" name="ventaDetalles" type="db_VentaDetalles" association="dbassoc_Ventas_VD" aggregation="composite"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_VD_venta" name="venta" type="db_Ventas" association="dbassoc_Ventas_VD"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_AV_VD"><memberEnd xmi:idref="dbend_AV_ventaDetalles"/><memberEnd xmi:idref="dbend_VD_variante"/><ownedEnd xmi:id="dbend_AV_ventaDetalles" name="ventaDetalles" type="db_VentaDetalles" association="dbassoc_AV_VD"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_VD_variante" name="variante" type="db_ArticuloVariantes" association="dbassoc_AV_VD"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_AV_MS"><memberEnd xmi:idref="dbend_AV_movimientos"/><memberEnd xmi:idref="dbend_MS_variante"/><ownedEnd xmi:id="dbend_AV_movimientos" name="movimientosStock" type="db_MovimientosStock" association="dbassoc_AV_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_MS_variante" name="variante" type="db_ArticuloVariantes" association="dbassoc_AV_MS"><lowerValue xmi:type="uml:LiteralInteger" value="1"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Ingresos_MS"><memberEnd xmi:idref="dbend_Ingresos_movimientos"/><memberEnd xmi:idref="dbend_MS_ingreso"/><ownedEnd xmi:id="dbend_Ingresos_movimientos" name="movimientosStock" type="db_MovimientosStock" association="dbassoc_Ingresos_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_MS_ingreso" name="ingreso" type="db_Ingresos" association="dbassoc_Ingresos_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+      <packagedElement xmi:type="uml:Association" xmi:id="dbassoc_Ventas_MS"><memberEnd xmi:idref="dbend_Ventas_movimientos"/><memberEnd xmi:idref="dbend_MS_venta"/><ownedEnd xmi:id="dbend_Ventas_movimientos" name="movimientosStock" type="db_MovimientosStock" association="dbassoc_Ventas_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="*"/></ownedEnd><ownedEnd xmi:id="dbend_MS_venta" name="venta" type="db_Ventas" association="dbassoc_Ventas_MS"><lowerValue xmi:type="uml:LiteralInteger" value="0"/><upperValue xmi:type="uml:LiteralUnlimitedNatural" value="1"/></ownedEnd></packagedElement>
+
+    </packagedElement>
+
+    <!-- ============================================================ -->
     <!-- PAQUETE 1.5: DIAGRAMA DE CASOS DE USO POR ACTOR (CASOS_DE_USO.md, seccion 3) -->
     <!-- ============================================================ -->
     <packagedElement xmi:type="uml:Package" xmi:id="pkg_casosuso" name="Diagrama de Casos de Uso">
